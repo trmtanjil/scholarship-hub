@@ -1,9 +1,10 @@
 import { Link } from "react-router";
+import Scholarshiplogo from "../../Scholarshiplogo/Scholarshiplogo";
 
 const Navbar = () => {
   const user = true; // Dummy user, pore firebase auth er sathe replace korba
-  const isAdmin = false; // Dummy admin role
-  const isModerator = false; // Dummy moderator role
+  const isAdmin = true; // Dummy admin role
+  const isModerator = true; // Dummy moderator role
 
 
  
@@ -15,9 +16,7 @@ const Navbar = () => {
     <div className="navbar bg-white shadow-lg px-6 py-3 sticky top-0 z-50">
       {/* Logo */}
       <div className="flex-1">
-        <Link to="/" className="text-2xl font-bold text-blue-600">
-          🎓 ScholarFinder
-        </Link>
+        <Scholarshiplogo></Scholarshiplogo>
       </div>
 
       {/* Menu Links */}
@@ -27,8 +26,8 @@ const Navbar = () => {
 
         {/* Conditional Dashboard Links */}
         {user && <Link to="/userdashboard" className="hover:text-blue-500">User Dashboard</Link>}
-        {isAdmin && <Link to="/dashboard/admin" className="hover:text-blue-500">Admin Dashboard</Link>}
-        {isModerator && <Link to="/dashboard/moderator" className="hover:text-blue-500">Moderator Dashboard</Link>}
+        {isAdmin && <Link to="/admindashboard" className="hover:text-blue-500">Admin Dashboard</Link>}
+        {isModerator && <Link to="/modaratordashboard" className="hover:text-blue-500">Moderator Dashboard</Link>}
 
         {/* Login/Logout */}
         {user ? (
@@ -55,8 +54,8 @@ const Navbar = () => {
           <li><Link to="/">Home</Link></li>
           <li><Link to="/all-scholarships">All Scholarship</Link></li>
           {user && <li><Link to="/userdashboard">User Dashboard</Link></li>}
-          {isAdmin && <li><Link to="/dashboard/admin">Admin Dashboard</Link></li>}
-          {isModerator && <li><Link to="/dashboard/moderator">Moderator Dashboard</Link></li>}
+          {isAdmin && <li><Link to="/admindashboard">Admin Dashboard</Link></li>}
+          {isModerator && <li><Link to="/modaratordashboard">Moderator Dashboard</Link></li>}
           {user ? <li><button>Logout</button></li> : <li><Link to="/login">Login</Link></li>}
         </ul>
       </div>

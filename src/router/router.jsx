@@ -6,6 +6,8 @@ import UserDeshBoardLayout from "../RootLayOut/UserDeshBoardLayout";
 import ModaratorDeshBoardLayout from "../RootLayOut/ModaratorDeshBoardLayout";
 import AdminDeshBoardLayout from "../RootLayOut/AdminDeshBoardLayout";
 import AllScholerShip from "../Home/AllScholerShip/AllScholerShip";
+import AdminAddScholarship from "../Page/AdminAddScholarship/AdminAddScholarship";
+import AthenticationLayOut from "../RootLayOut/AthenticationLayOut";
  
  
 export const router = createBrowserRouter([
@@ -26,6 +28,25 @@ export const router = createBrowserRouter([
         
     ]
 },
+
+//auth lay out 
+{
+  path:'/',
+  Component:AthenticationLayOut,
+  children:[
+    // {
+    //   path:'login',
+    //   Component:Login,
+    // },
+    //  {
+    //   path:'register',
+    //   Component:RegisterForm,
+    // },
+  ]
+ },
+
+
+
 //user deshboard 
 
   {
@@ -52,7 +73,10 @@ export const router = createBrowserRouter([
   path:'/admindashboard',
   element:<AdminDeshBoardLayout></AdminDeshBoardLayout>,
   children:[
-    
+    {
+        path:'addminaddscholaship',
+        Component:AdminAddScholarship,
+    }
   
   ]
  },
