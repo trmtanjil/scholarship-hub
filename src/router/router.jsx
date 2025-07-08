@@ -11,6 +11,7 @@ import AthenticationLayOut from "../RootLayOut/AthenticationLayOut";
 import Login from "../Home/Authentication/Login/Login";
 import RegisterForm from "../Home/Authentication/Register/Register";
 import A_M_AddScholarship from "../Page/AdminAddScholarship/A_M_AddScholarship";
+import ScholarshipDetails from "../Page/ScholarshipDetails/ScholarshipDetails";
  
  
 export const router = createBrowserRouter([
@@ -45,6 +46,10 @@ export const router = createBrowserRouter([
       path:'register',
       Component:RegisterForm,
     },
+      {
+      path:'sholarshipdetails/:id',
+      Component:ScholarshipDetails
+    }
   ]
  },
 
@@ -69,7 +74,8 @@ export const router = createBrowserRouter([
     {
       path:'amaddscholership',
       Component:A_M_AddScholarship,
-    }
+    },
+  
   
   ]
  },

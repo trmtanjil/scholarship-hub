@@ -1,8 +1,11 @@
 import React from 'react'
+import PaginasionToSchola from '../../Page/PaginasionToSchola/PaginasionToSchola'
 
 function Home() {
   return (
-    <div>Homedfsdfsddddd</div>
+    <div>
+      <PaginasionToSchola></PaginasionToSchola>
+    </div>
   )
 }
 

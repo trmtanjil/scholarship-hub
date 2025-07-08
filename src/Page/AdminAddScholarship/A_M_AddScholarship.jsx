@@ -1,12 +1,15 @@
-import axios from 'axios';
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import Swal from 'sweetalert2';
+import axios from 'axios';
+import useAxiosSecure from '../../hoocks/useAxiosSecure';
 
 const A_M_AddScholarship = () => {
   const { register, handleSubmit, reset, formState: { errors } } = useForm();
   const [universityImage, setUniversityImage] = useState('');
+  const axiosSecure = useAxiosSecure();  // ✅ Custom Hook call
 
+  // ✅ Image Upload Function
   const handleImageUpload = async (e) => {
     const image = e.target.files[0];
     const formData = new FormData();
@@ -24,7 +27,8 @@ const A_M_AddScholarship = () => {
     }
   };
 
-  const onSubmit = (data) => {
+  // ✅ Scholarship Submit Function
+  const onSubmit = async (data) => {
     if (!universityImage) {
       Swal.fire('Error', 'Please upload university image!', 'error');
       return;
@@ -32,12 +36,22 @@ const A_M_AddScholarship = () => {
 
     const scholarshipData = {
       ...data,
-      universityImage: universityImage,
+      universityImage,
     };
 
-    console.log('Scholarship Data:', scholarshipData);
-    Swal.fire('Success', 'Scholarship submitted successfully!', 'success');
-    reset();
+    try {
+      const res = await axiosSecure.post('/scholarships', scholarshipData);
+      if (res.data.insertedId || res.data.acknowledged) {
+        Swal.fire('Success', 'Scholarship submitted successfully!', 'success');
+        reset();
+        setUniversityImage('');
+      } else {
+        Swal.fire('Error', 'Failed to submit scholarship!', 'error');
+      }
+    } catch (error) {
+      console.error(error);
+      Swal.fire('Error', 'Failed to submit scholarship!', 'error');
+    }
   };
 
   return (
