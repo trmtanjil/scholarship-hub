@@ -6,8 +6,11 @@ import UserDeshBoardLayout from "../RootLayOut/UserDeshBoardLayout";
 import ModaratorDeshBoardLayout from "../RootLayOut/ModaratorDeshBoardLayout";
 import AdminDeshBoardLayout from "../RootLayOut/AdminDeshBoardLayout";
 import AllScholerShip from "../Home/AllScholerShip/AllScholerShip";
-import AdminAddScholarship from "../Page/AdminAddScholarship/AdminAddScholarship";
+import AdminAddScholarship from "../Page/AdminAddScholarship/A_M_AddScholarship";
 import AthenticationLayOut from "../RootLayOut/AthenticationLayOut";
+import Login from "../Home/Authentication/Login/Login";
+import RegisterForm from "../Home/Authentication/Register/Register";
+import A_M_AddScholarship from "../Page/AdminAddScholarship/A_M_AddScholarship";
  
  
 export const router = createBrowserRouter([
@@ -34,14 +37,14 @@ export const router = createBrowserRouter([
   path:'/',
   Component:AthenticationLayOut,
   children:[
-    // {
-    //   path:'login',
-    //   Component:Login,
-    // },
-    //  {
-    //   path:'register',
-    //   Component:RegisterForm,
-    // },
+    {
+      path:'login',
+      Component:Login,
+    },
+     {
+      path:'register',
+      Component:RegisterForm,
+    },
   ]
  },
 
@@ -63,7 +66,10 @@ export const router = createBrowserRouter([
   path:'/modaratordashboard',
   element:<ModaratorDeshBoardLayout></ModaratorDeshBoardLayout>,
   children:[
-    
+    {
+      path:'amaddscholership',
+      Component:A_M_AddScholarship,
+    }
   
   ]
  },
