@@ -16,6 +16,7 @@ import Payment from "../Page/Payment/Payment";
 import AllScholarships from "../Page/AllScholarships/AllScholarships";
 import MyApplication from "../Page/MyApplication/MyApplication";
 import MyProfile from "../Page/MyProfile/MyProfile";
+import MyReviews from "../Page/Myreviews/Myreviews";
  
  
 export const router = createBrowserRouter([
@@ -79,6 +80,10 @@ export const router = createBrowserRouter([
     {
       path:'myprofile',
       Component:MyProfile
+    },
+     {
+      path:'myreveiw',
+      Component:MyReviews
     }
   
   ]

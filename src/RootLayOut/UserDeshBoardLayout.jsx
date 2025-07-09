@@ -47,6 +47,9 @@ function UserDeshBoardLayout() {
   <NavLink to="/userdashboard/myapplication">
     <MdSchool className="inline-block mr-2" size={18} /> Applied Scholarships
   </NavLink>
+    <NavLink to="/userdashboard/myreveiw">
+    <MdSchool className="inline-block mr-2" size={18} /> My Review
+  </NavLink>
 </li>
 
         </ul>
