@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import Swal from 'sweetalert2';
 import useAuth from '../../hoocks/useAuth';
-import useAxiosSecure from '../../hoocks/useAxiosSecure';
 import { useQuery } from '@tanstack/react-query';
 import { useParams } from 'react-router';
 import axios from 'axios';
+import useAxiosSecure from '../../hoocks/useAxiosSecure';
 
 const ScholarshipSucces = () => {
   const { register, handleSubmit, reset, formState: { errors } } = useForm();
@@ -14,6 +14,25 @@ const ScholarshipSucces = () => {
   const { scholarId } = useParams();
     const [ApplicantImage, setApplicantImageImage] = useState('');
   
+   // ✅ Image Upload Function
+  const handleImageUpload = async (e) => {
+    const image = e.target.files[0];
+    const formData = new FormData();
+    formData.append('image', image);
+
+    const imageUploadUrl = `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_IMAGE_UPLOAD_KEY}`;
+
+    try {
+      const res = await axios.post(imageUploadUrl, formData);
+      setApplicantImageImage(res.data.data.url);
+      Swal.fire('Success', 'Image uploaded successfully!', 'success');
+    } catch (error) {
+      console.error(error);
+      Swal.fire('Error', 'Image upload failed!', 'error');
+    }
+  };
+
+
 
   // ✅ Get Scholarship Data by ID
   const { data: scholarship = {}, isLoading } = useQuery({
@@ -51,24 +70,7 @@ const ScholarshipSucces = () => {
   if (isLoading) return <p className="text-center">Loading...</p>;
 
 
-    // ✅ Image Upload Function
-  const handleImageUpload = async (e) => {
-    const image = e.target.files[0];
-    const formData = new FormData();
-    formData.append('image', image);
-
-    const imageUploadUrl = `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_IMAGE_UPLOAD_KEY}`;
-
-    try {
-      const res = await axios.post(imageUploadUrl, formData);
-      setApplicantImageImage(res.data.data.url);
-      Swal.fire('Success', 'Image uploaded successfully!', 'success');
-    } catch (error) {
-      console.error(error);
-      Swal.fire('Error', 'Image upload failed!', 'error');
-    }
-  };
-
+ 
 
   return (
     <div className="max-w-3xl mx-auto p-6 bg-white rounded-lg shadow-md">

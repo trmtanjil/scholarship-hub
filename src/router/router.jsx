@@ -13,6 +13,9 @@ import RegisterForm from "../Home/Authentication/Register/Register";
 import A_M_AddScholarship from "../Page/AdminAddScholarship/A_M_AddScholarship";
 import ScholarshipDetails from "../Page/ScholarshipDetails/ScholarshipDetails";
 import Payment from "../Page/Payment/Payment";
+import AllScholarships from "../Page/AllScholarships/AllScholarships";
+import MyApplication from "../Page/MyApplication/MyApplication";
+import MyProfile from "../Page/MyProfile/MyProfile";
  
  
 export const router = createBrowserRouter([
@@ -50,6 +53,9 @@ export const router = createBrowserRouter([
       {
       path:'sholarshipdetails/:id',
       Component:ScholarshipDetails
+    },{
+      path:'allscholarships',
+      Component:AllScholarships
     }
   ]
  },
@@ -66,7 +72,14 @@ export const router = createBrowserRouter([
       path: 'checkout/:scholarId',
       element: <Payment />,     // এটা ঠিক ✅
     },
-    
+    {
+      path:'myapplication',
+      Component:MyApplication,
+    },
+    {
+      path:'myprofile',
+      Component:MyProfile
+    }
   
   ]
  },
