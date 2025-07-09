@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useMutation } from '@tanstack/react-query';
 import useAuth from '../../hoocks/useAuth';
 import useAxiosSecure from '../../hoocks/useAxiosSecure';
-
+import Swal from 'sweetalert2';
 
 const MyReviews = () => {
   const { user } = useAuth();
@@ -23,11 +23,53 @@ const MyReviews = () => {
   });
 
   // ✅ Delete Review
+  const handleDelete = async (id) => {
+    const confirm = await Swal.fire({
+      title: 'Are you sure?',
+      text: "This review will be permanently deleted!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, delete it!',
+    });
 
+    if (confirm.isConfirmed) {
+      try {
+        const res = await axiosSecure.delete(`/reviews/${id}`);
+        if (res.data.deletedCount > 0) {
+          Swal.fire('Deleted!', 'Your review has been deleted.', 'success');
+          refetch();
+        }
+      } catch (error) {
+        Swal.fire('Failed!', 'Something went wrong.', 'error');
+      }
+    }
+  };
 
   // ✅ Edit Review
+  const handleEdit = (review) => {
+    setEditingReview(review);
+    setNewRating(review.rating);
+    setNewComment(review.comment);
+  };
 
+  const handleUpdate = async () => {
+    try {
+      const updatedReview = {
+        rating: parseFloat(newRating),
+        comment: newComment,
+        reviewDate: new Date().toISOString(),
+      };
 
+      const res = await axiosSecure.patch(`/reviews/${editingReview._id}`, updatedReview);
+      if (res.data.modifiedCount > 0) {
+        Swal.fire('Updated!', 'Your review has been updated.', 'success');
+        setEditingReview(null);
+        refetch();
+      }
+    } catch (error) {
+      Swal.fire('Failed!', 'Failed to update review.', 'error',error);
+    }
+  };
 
   if (isLoading) return <p className="text-center mt-10">Loading...</p>;
 
@@ -57,13 +99,13 @@ const MyReviews = () => {
                 <td>{new Date(review.reviewDate).toLocaleDateString()}</td>
                 <td className="space-x-2">
                   <button
-                  
+                    onClick={() => handleEdit(review)}
                     className="btn btn-sm btn-outline btn-warning"
                   >
                     Edit
                   </button>
                   <button
-                 
+                    onClick={() => handleDelete(review._id)}
                     className="btn btn-sm btn-outline btn-error"
                   >
                     Delete
@@ -98,7 +140,7 @@ const MyReviews = () => {
               className="textarea textarea-bordered w-full"
             ></textarea>
 
-            <button className="btn btn-primary w-full">Update Review</button>
+            <button onClick={handleUpdate} className="btn btn-primary w-full">Update Review</button>
             <button onClick={() => setEditingReview(null)} className="btn btn-outline w-full">Cancel</button>
           </div>
         </div>
