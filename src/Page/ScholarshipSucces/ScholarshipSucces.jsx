@@ -43,29 +43,36 @@ const ScholarshipSucces = () => {
     },
   });
 
-  const onSubmit = async (data) => {
-    const applicationData = {
-      ...data,
-      userName: user.displayName,
-      userEmail: user.email,
-      userId: user._id || 'user-id',  // আপনার ইউজার কালেকশন থেকে আনতে হবে
-      scholarshipId: scholarship?._id,
-      universityName: scholarship?.universityName,
-      category: scholarship?.scholarshipCategory,
-      subject: scholarship?.subjectCategory,
-      appliedDate: new Date().toISOString(),
-    };
+const onSubmit = async (data) => {
+  const applicationData = {
+    ...data,
+    userName: user.displayName,
+    userEmail: user.email,
+    userId: user.uid || 'user-id',            // ✅ If you have it
+    photoURL: ApplicantImage,                 // ✅ Added Image
 
-    try {
-      const res = await axiosSecure.post('/applied-scholarships', applicationData);
-      if (res.data.insertedId) {
-        Swal.fire('✅ Application Successful', 'Your scholarship application has been submitted.', 'success');
-        reset();
-      }
-    } catch (error) {
-      Swal.fire('❌ Submission Failed', error.message, 'error');
-    }
+    scholarshipId: scholarship?._id,
+    universityName: scholarship?.universityName,
+    universityAddress: scholarship?.universityAddress || '',  // Optional but good
+    category: scholarship?.scholarshipCategory,
+    subject: scholarship?.subjectCategory,
+    applicationFees: scholarship?.applicationFees || 0,       // ✅ Added
+    serviceCharge: scholarship?.serviceCharge || 0,           // ✅ Added
+    appliedDate: new Date().toISOString(),
+    status: 'pending',
+    feedback: ''
   };
+
+  try {
+    const res = await axiosSecure.post('/applied-scholarships', applicationData);
+    if (res.data.insertedId) {
+      Swal.fire('✅ Application Successful', 'Your scholarship application has been submitted.', 'success');
+      reset();
+    }
+  } catch (error) {
+    Swal.fire('❌ Submission Failed', error.message, 'error');
+  }
+};
 
   if (isLoading) return <p className="text-center">Loading...</p>;
 

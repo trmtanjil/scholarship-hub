@@ -1,6 +1,6 @@
 import React from 'react'
 import { Outlet } from 'react-router'
-import authImage from '../assets/authImage.png'
+ 
 import Scholarshiplogo from '../Scholarshiplogo/Scholarshiplogo'
 
 function AthenticationLayOut() {
@@ -11,9 +11,7 @@ function AthenticationLayOut() {
         </div>
       
   <div className="hero-content flex-col lg:flex-row-reverse ">
-      <div className='flex-1'>
-            <img src={authImage} alt="" />
-        </div>
+      
     <div className='flex-1'>
       <Outlet></Outlet>
     </div>

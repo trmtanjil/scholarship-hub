@@ -25,7 +25,7 @@ const MyProfile = () => {
         alt="User"
         className="w-32 h-32 mx-auto rounded-full border-4 border-blue-500 mb-4"
       />
-      <h2 className="text-2xl font-bold mb-2">{user?.displayName || userInfo?.name || 'N/A'}</h2>
+      <h2 className="text-2xl text-black font-bold mb-2">{user?.displayName || userInfo?.name || 'N/A'}</h2>
       <p className="text-gray-600 mb-2">{user?.email || userInfo?.email}</p>
 
       {userInfo?.role && userInfo?.role !== 'user' && (
