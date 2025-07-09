@@ -12,6 +12,7 @@ import Login from "../Home/Authentication/Login/Login";
 import RegisterForm from "../Home/Authentication/Register/Register";
 import A_M_AddScholarship from "../Page/AdminAddScholarship/A_M_AddScholarship";
 import ScholarshipDetails from "../Page/ScholarshipDetails/ScholarshipDetails";
+import Payment from "../Page/Payment/Payment";
  
  
 export const router = createBrowserRouter([
@@ -61,6 +62,10 @@ export const router = createBrowserRouter([
   path:'/userdashboard',
   element:<UserDeshBoardLayout></UserDeshBoardLayout>,
   children:[
+      {
+      path: 'checkout/:parchelId',
+      element: <Payment />,     // এটা ঠিক ✅
+    },
     
   
   ]
