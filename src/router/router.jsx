@@ -63,7 +63,7 @@ export const router = createBrowserRouter([
   element:<UserDeshBoardLayout></UserDeshBoardLayout>,
   children:[
       {
-      path: 'checkout/:parchelId',
+      path: 'checkout/:scholarId',
       element: <Payment />,     // এটা ঠিক ✅
     },
     
