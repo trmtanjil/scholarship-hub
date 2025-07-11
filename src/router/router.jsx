@@ -17,6 +17,7 @@ import AllScholarships from "../Page/AllScholarships/AllScholarships";
 import MyApplication from "../Page/MyApplication/MyApplication";
 import MyProfile from "../Page/MyProfile/MyProfile";
 import MyReviews from "../Page/Myreviews/Myreviews";
+import EditApplication from "../Page/EditApplication/EditApplication";
  
  
 export const router = createBrowserRouter([
@@ -54,7 +55,8 @@ export const router = createBrowserRouter([
       {
       path:'sholarshipdetails/:id',
       Component:ScholarshipDetails
-    },{
+    },
+    {
       path:'allscholarships',
       Component:AllScholarships
     }
@@ -84,6 +86,11 @@ export const router = createBrowserRouter([
      {
       path:'myreveiw',
       Component:MyReviews
+    },
+    
+    {
+       path:"edit-application/:id",
+       Component:EditApplication
     }
   
   ]

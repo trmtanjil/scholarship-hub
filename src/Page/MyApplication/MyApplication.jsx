@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import useAuth from '../../hoocks/useAuth';
 import useAxiosSecure from '../../hoocks/useAxiosSecure';
-import { Link } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 import Swal from 'sweetalert2';
 
 const MyApplication = () => {
@@ -12,6 +12,7 @@ const MyApplication = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [rating, setRating] = useState('');
   const [comment, setComment] = useState('');
+  const navigate = useNavigate();
 
   const { data: applications = [], isLoading, refetch } = useQuery({
     queryKey: ['myApplications', user?.email],
@@ -100,10 +101,27 @@ const MyApplication = () => {
                 </td>
                 <td>{app.feedback || 'No feedback yet'}</td>
                 <td className="space-x-2">
-                  <Link to={`/scholarship/${app.scholarshipId}`}>
+                  <Link to={`/sholarshipdetails/${app.scholarshipId}`}>
                     <button className="btn btn-sm btn-outline btn-info">Details</button>
                   </Link>
-                  <button className="btn btn-sm btn-outline btn-warning">Edit</button>
+
+                  <button
+  onClick={() => {
+    if (app.status === 'pending') {
+      // 👉 এখানে তুমি Edit Modal খুলতে পারো বা Navigate করতে পারো
+      // উদাহরণ: 
+      navigate(`/userdashboard/edit-application/${app._id}`)
+      Swal.fire('📝 Allowed', 'You can edit this application.', 'info');
+    } else {
+      Swal.fire('⚠️ Cannot Edit', 'Your application is already processing or completed.', 'warning');
+    }
+  }}
+  className="btn btn-sm btn-outline btn-warning"
+>
+  Edit
+</button>
+
+
                   <button className="btn btn-sm btn-outline btn-error">Cancel</button>
                   <button onClick={() => handleAddReviewClick(app)} className="btn btn-sm btn-outline btn-success">Add Review</button>
                 </td>

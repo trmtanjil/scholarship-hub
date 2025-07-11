@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useQuery, useMutation } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 import useAuth from '../../hoocks/useAuth';
 import useAxiosSecure from '../../hoocks/useAxiosSecure';
 import Swal from 'sweetalert2';
@@ -40,7 +40,7 @@ const MyReviews = () => {
           refetch();
         }
       } catch (error) {
-        Swal.fire('Failed!', 'Something went wrong.', 'error');
+        Swal.fire('Failed!', 'Something went wrong.', 'error',error);
       }
     }
   };
