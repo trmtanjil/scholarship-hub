@@ -1,9 +1,11 @@
 import React from "react";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import useAxiosSecure from "../../hoocks/useAxiosSecure";
+import Swal from "sweetalert2";
 
 const AllreviewsMod = () => {
   const axiosSecure = useAxiosSecure();
+  const queryClient = useQueryClient();
 
   const { data: reviews = [], isLoading } = useQuery({
     queryKey: ["allReviews"],
@@ -12,6 +14,33 @@ const AllreviewsMod = () => {
       return res.data;
     },
   });
+
+  const deleteMutation = useMutation({
+    mutationFn: (id) => axiosSecure.delete(`/reviews/${id}`),
+    onSuccess: () => {
+      queryClient.invalidateQueries(["allReviews"]);
+      Swal.fire("Deleted!", "Review deleted successfully.", "success");
+    },
+    onError: () => {
+      Swal.fire("Error", "Failed to delete review.", "error");
+    },
+  });
+
+  const handleDelete = (id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#3085d6",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        deleteMutation.mutate(id);
+      }
+    });
+  };
 
   if (isLoading) return <p className="text-center">Loading...</p>;
 
@@ -22,7 +51,7 @@ const AllreviewsMod = () => {
         {reviews.map((review) => (
           <div
             key={review._id}
-            className="border p-4 rounded-lg shadow hover:shadow-md transition duration-200"
+            className="border p-4 rounded-lg shadow hover:shadow-md transition duration-200 flex flex-col"
           >
             <div className="flex items-center gap-3 mb-2">
               <img
@@ -50,13 +79,19 @@ const AllreviewsMod = () => {
               <span className="font-medium">Rating:</span> {review.rating} ⭐
             </p>
 
-            <p className="text-sm text-gray-700 italic mt-1">
-              “{review.comment}”
-            </p>
+            <p className="text-sm text-gray-700 italic mt-1">“{review.comment}”</p>
 
             <p className="text-xs text-right text-gray-400 mt-2">
               {new Date(review.reviewDate).toLocaleDateString()}
             </p>
+
+            {/* Delete Button inside each review card */}
+            <button
+              onClick={() => handleDelete(review._id)}
+              className="mt-4 bg-red-500 text-white py-1 px-3 rounded hover:bg-red-600 transition self-start"
+            >
+              Delete
+            </button>
           </div>
         ))}
       </div>
