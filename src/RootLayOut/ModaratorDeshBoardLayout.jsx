@@ -1,7 +1,9 @@
 import React from 'react'
-import { NavLink, Outlet } from 'react-router'
+import { Link, NavLink, Outlet } from 'react-router'
 import Scholarshiplogo from '../Scholarshiplogo/Scholarshiplogo'
 import { BiHome } from 'react-icons/bi'
+import { FaUserCircle, FaRegListAlt, FaClipboardList, FaPlusCircle, FaComments, FaBookReader } from 'react-icons/fa';
+
 
 function ModaratorDeshBoardLayout() {
   return (
@@ -51,6 +53,29 @@ function ModaratorDeshBoardLayout() {
               <BiHome className="inline-block mr-2" size={18} /> Home
             </NavLink>
           </li>
+            <Link to="/modaratordashboard/amaddscholership" className="btn btn-sm btn-primary flex items-center gap-2">
+    <FaPlusCircle /> Add Scholarship (AM)
+  </Link>
+
+  <Link to="/modaratordashboard/modaratorProfile" className="btn btn-sm btn-primary flex items-center gap-2">
+    <FaUserCircle /> Moderator Profile
+  </Link>
+
+  <Link to="/modaratordashboard/mmgSlrspModarator" className="btn btn-sm btn-primary flex items-center gap-2">
+    <FaRegListAlt /> Manage Scholarships
+  </Link>
+
+  <Link to="/modaratordashboard/allreviewsMod" className="btn btn-sm btn-primary flex items-center gap-2">
+    <FaComments /> All Reviews
+  </Link>
+
+  <Link to="/modaratordashboard/allappliedSlspMdtr" className="btn btn-sm btn-primary flex items-center gap-2">
+    <FaClipboardList /> All Applied Scholarships
+  </Link>
+
+  <Link to="/modaratordashboard/AddScholarshipMrtr" className="btn btn-sm btn-primary flex items-center gap-2">
+    <FaBookReader /> Add Scholarship (MTR)
+  </Link>
 
          
           

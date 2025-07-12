@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import Swal from 'sweetalert2';
 import axios from 'axios';
 import useAxiosSecure from '../../hoocks/useAxiosSecure';
-
+ 
 const A_M_AddScholarship = () => {
   const { register, handleSubmit, reset, formState: { errors } } = useForm();
   const [universityImage, setUniversityImage] = useState('');

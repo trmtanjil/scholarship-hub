@@ -18,6 +18,12 @@ import MyApplication from "../Page/MyApplication/MyApplication";
 import MyProfile from "../Page/MyProfile/MyProfile";
 import MyReviews from "../Page/Myreviews/Myreviews";
 import EditApplication from "../Page/EditApplication/EditApplication";
+import ModaratorProfile from "../Page/Modarator/ModaratorProfile";
+import MmgSlrspModarator from "../Page/Modarator/MmgSlrspModarator";
+import AllreviewsMod from "../Page/Modarator/AllreviewsMod";
+import AllappliedSlspMdtr from "../Page/Modarator/AllappliedSlspMdtr";
+import AddScholarshipMrtr from "../Page/Modarator/AddScholarshipMrtr";
+import ModaratorRoute from "./ModaratorRoute";
  
  
 export const router = createBrowserRouter([
@@ -99,12 +105,32 @@ export const router = createBrowserRouter([
 
   {
   path:'/modaratordashboard',
-  element:<ModaratorDeshBoardLayout></ModaratorDeshBoardLayout>,
+  element: <ModaratorDeshBoardLayout></ModaratorDeshBoardLayout>,
   children:[
     {
       path:'amaddscholership',
       Component:A_M_AddScholarship,
     },
+    {
+      path:'modaratorProfile',
+      Component:ModaratorProfile,
+    },
+    {
+      path:'mmgSlrspModarator',
+      Component:MmgSlrspModarator,
+    },
+     {
+      path:'allreviewsMod',
+      Component:AllreviewsMod,
+    },
+     {
+      path:'allappliedSlspMdtr',
+      Component:AllappliedSlspMdtr,
+    },
+    {
+      path:'AddScholarshipMrtr',
+      Component:AddScholarshipMrtr,
+    }
   
   
   ]

@@ -27,7 +27,7 @@ const EditApplication = () => {
       const res = await axiosSecure.patch(`/applied-scholarships/${id}`, data);
       if (res.data.modifiedCount > 0) {
         Swal.fire('✅ Success', 'Application updated successfully!', 'success');
-        navigate('/userdashboard/my-applications');
+        navigate('/userdashboard/myapplication');
       }
     } catch (error) {
       Swal.fire('❌ Error', 'Failed to update application', 'error',error);
