@@ -103,13 +103,50 @@ const [feedbackText, setFeedbackText] = useState('');
 >
   <FiMessageSquare className="h-5 w-5" />
 </button>
-                                   <button
-                          onClick={(e) => e.stopPropagation()}
-                          className="text-red-600 hover:text-red-900 p-1 rounded-full hover:bg-red-50"
-                          title="Cancel"
-                        >
-                          <FiTrash2 className="h-5 w-5" />
-                        </button>
+
+
+
+
+                           <button
+  onClick={async (e) => {
+    e.stopPropagation();
+    const confirm = await Swal.fire({
+      title: 'Are you sure?',
+      text: 'Do you want to cancel this application?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, Cancel it',
+      cancelButtonText: 'No',
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#3085d6',
+    });
+
+    if (confirm.isConfirmed) {
+      try {
+        await axiosSecure.put(`/applied-scholarships/cancel/${app._id}`);
+        Swal.fire({
+          title: 'Cancelled!',
+          text: 'Application has been marked as rejected.',
+          icon: 'success',
+          timer: 1500,
+          showConfirmButton: false,
+        });
+      } catch (error) {
+        console.error(error);
+        Swal.fire('Error', 'Failed to cancel application', 'error');
+      }
+    }
+  }}
+  className="text-red-600 hover:text-red-900 p-1 rounded-full hover:bg-red-50"
+  title="Cancel"
+>
+  <FiTrash2 className="h-5 w-5" />
+</button>
+
+
+
+
+
                     </td>
                   </tr>
                 ))

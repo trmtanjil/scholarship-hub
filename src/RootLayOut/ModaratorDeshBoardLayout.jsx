@@ -73,9 +73,7 @@ function ModaratorDeshBoardLayout() {
     <FaClipboardList /> All Applied Scholarships
   </Link>
 
-  <Link to="/modaratordashboard/AddScholarshipMrtr" className="btn btn-sm btn-primary flex items-center gap-2">
-    <FaBookReader /> Add Scholarship (MTR)
-  </Link>
+   
 
          
           

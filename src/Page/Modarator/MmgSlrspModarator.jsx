@@ -61,6 +61,7 @@ const ManageScholarships = () => {
 };
 
 
+
   if (isLoading) return <p>Loading...</p>;
 
   return (

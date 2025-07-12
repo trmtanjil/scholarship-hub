@@ -2,7 +2,9 @@ import React from 'react'
 import Scholarshiplogo from '../Scholarshiplogo/Scholarshiplogo'
 import { Outlet } from 'react-router'
 import { NavLink } from 'react-router'
-import { BiHome, BiPackage } from 'react-icons/bi'
+import { BiEdit, BiFileFind, BiHome, BiMessageAltDetail, BiPackage, BiUserCircle } from 'react-icons/bi'
+import { MdSchool } from 'react-icons/md'
+import { FaClipboardList, FaStar, FaUsersCog } from 'react-icons/fa'
 
 function AdminDeshBoardLayout() {
   return (
@@ -58,6 +60,40 @@ function AdminDeshBoardLayout() {
               <BiPackage className="inline-block mr-2" size={18} />Admin add scholarship
             </NavLink>
           </li>
+          {/* Manage all scholarships */}
+<li>
+  <NavLink to="/admindashboard/managescholarships" className="flex items-center text-white hover:text-blue-600">
+    <MdSchool className="inline-block mr-2 text-white" size={18} />
+    Manage Scholarships
+  </NavLink>
+</li>
+
+{/* Manage all applied scholarship applications */}
+<li>
+  <NavLink to="/admindashboard/manageapplications" className="flex items-center text-white hover:text-blue-600">
+    <FaClipboardList className="inline-block mr-2 text-white" size={18} />
+    Manage Applications
+  </NavLink>
+</li>
+
+{/* Manage users and roles */}
+<li>
+  <NavLink to="/admindashboard/manageusers" className="flex items-center text-white hover:text-blue-600">
+    <FaUsersCog className="inline-block mr-2 text-white" size={18} />
+    Manage Users
+  </NavLink>
+</li>
+
+{/* Manage user reviews on scholarships */}
+<li>
+  <NavLink to="/admindashboard/managereviews" className="flex items-center text-white hover:text-blue-600">
+    <FaStar className="inline-block mr-2 text-white" size={18} />
+    Manage Reviews
+  </NavLink>
+</li>
+
+    
+ 
           
        
         </ul>

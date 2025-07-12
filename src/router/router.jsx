@@ -25,6 +25,10 @@ import AllappliedSlspMdtr from "../Page/Modarator/AllappliedSlspMdtr";
 import AddScholarshipMrtr from "../Page/Modarator/AddScholarshipMrtr";
 import EditScholarshipForm from "../Page/EditScholaship/EditScholar";
 import EditScholar from "../Page/EditScholaship/EditScholar";
+import ManageScholarships from "../Page/Modarator/MmgSlrspModarator";
+import Manageusers from "../Page/Admin/Manageusers";
+import Managereviews from "../Page/Admin/Managereviews";
+import Manageapplications from "../Page/Admin/Manageapplications";
  
  
 export const router = createBrowserRouter([
@@ -128,10 +132,7 @@ export const router = createBrowserRouter([
       path:'allappliedSlspMdtr',
       Component:AllappliedSlspMdtr,
     },
-    {
-      path:'AddScholarshipMrtr',
-      Component:AddScholarshipMrtr,
-    },
+     
     {
   path: 'editScholarship/:id',
   Component:EditScholar
@@ -149,6 +150,22 @@ export const router = createBrowserRouter([
     {
         path:'addminaddscholaship',
         Component:AdminAddScholarship,
+    },
+    {
+      path:'manageapplications',
+      Component:Manageapplications,
+    },
+    {
+      path:'manageusers',
+      Component:Manageusers,
+    },
+    {
+      path:'managescholarships',
+      Component:ManageScholarships,
+    },
+    {
+      path:'managereviews',
+      Component:Managereviews,
     }
   
   ]
