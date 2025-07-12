@@ -4,6 +4,7 @@ import useAxiosSecure from "../../hoocks/useAxiosSecure";
 import { FaInfoCircle, FaEdit, FaTrashAlt } from "react-icons/fa";
 import { useNavigate } from "react-router";
 import EditScholar from "../EditScholaship/EditScholar";
+import Swal from "sweetalert2";
 
 
 
@@ -31,6 +32,34 @@ const ManageScholarships = () => {
   const closeEditModal = () => {
     setSelectedScholarship(null);
   };
+
+  const handleDelete = async (id) => {
+  const result = await Swal.fire({
+    title: "Are you sure?",
+    text: "You won't be able to revert this!",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#d33",
+    cancelButtonColor: "#3085d6",
+    confirmButtonText: "Yes, delete it!",
+  });
+
+  if (result.isConfirmed) {
+    try {
+      const res = await axiosSecure.delete(`/scholarships/${id}`);
+      if (res.data.deletedCount > 0) {
+        Swal.fire("Deleted!", "Scholarship has been deleted.", "success");
+        refetch(); // ✅ update list
+      } else {
+        Swal.fire("Error!", "Failed to delete scholarship.", "error");
+      }
+    } catch (err) {
+      console.error(err);
+      Swal.fire("Error!", "Server error occurred!", "error");
+    }
+  }
+};
+
 
   if (isLoading) return <p>Loading...</p>;
 
@@ -67,7 +96,7 @@ const ManageScholarships = () => {
                   <FaEdit className="text-yellow-500 cursor-pointer" />
                 </button>
 
-                <button>
+                <button  onClick={() => handleDelete(sch._id)}>
                   <FaTrashAlt className="text-red-500 cursor-not-allowed" />
                 </button>
               </td>
