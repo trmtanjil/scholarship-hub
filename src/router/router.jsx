@@ -23,7 +23,8 @@ import MmgSlrspModarator from "../Page/Modarator/MmgSlrspModarator";
 import AllreviewsMod from "../Page/Modarator/AllreviewsMod";
 import AllappliedSlspMdtr from "../Page/Modarator/AllappliedSlspMdtr";
 import AddScholarshipMrtr from "../Page/Modarator/AddScholarshipMrtr";
-import ModaratorRoute from "./ModaratorRoute";
+import EditScholarshipForm from "../Page/EditScholaship/EditScholar";
+import EditScholar from "../Page/EditScholaship/EditScholar";
  
  
 export const router = createBrowserRouter([
@@ -130,7 +131,11 @@ export const router = createBrowserRouter([
     {
       path:'AddScholarshipMrtr',
       Component:AddScholarshipMrtr,
-    }
+    },
+    {
+  path: 'editScholarship/:id',
+  Component:EditScholar
+}
   
   
   ]

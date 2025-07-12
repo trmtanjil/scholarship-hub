@@ -1,20 +1,36 @@
-import React from 'react';
-import { useQuery } from '@tanstack/react-query';
-import useAxiosSecure from '../../hoocks/useAxiosSecure';
-import { FaInfoCircle, FaEdit, FaTrashAlt } from 'react-icons/fa';
-import { useNavigate } from 'react-router';
+import React, { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import useAxiosSecure from "../../hoocks/useAxiosSecure";
+import { FaInfoCircle, FaEdit, FaTrashAlt } from "react-icons/fa";
+import { useNavigate } from "react-router";
+import EditScholar from "../EditScholaship/EditScholar";
+
+
 
 const ManageScholarships = () => {
   const axiosSecure = useAxiosSecure();
   const navigate = useNavigate();
 
-  const { data: scholarships = [], isLoading } = useQuery({
-    queryKey: ['allScholarships'],
+  const { data: scholarships = [], isLoading ,refetch} = useQuery({
+    queryKey: ["allScholarships"],
     queryFn: async () => {
-      const res = await axiosSecure.get('/scholarships');
+      const res = await axiosSecure.get("/scholarships");
       return res.data;
     },
   });
+
+  // State to control modal and selected scholarship
+  const [selectedScholarship, setSelectedScholarship] = useState(null);
+
+  // Open modal handler
+  const openEditModal = (scholarship) => {
+    setSelectedScholarship(scholarship);
+  };
+
+  // Close modal handler
+  const closeEditModal = () => {
+    setSelectedScholarship(null);
+  };
 
   if (isLoading) return <p>Loading...</p>;
 
@@ -41,13 +57,17 @@ const ManageScholarships = () => {
               <td>{sch.degree}</td>
               <td>${sch.applicationFees}</td>
               <td className="space-x-2">
-                <button onClick={() => navigate(`/sholarshipdetails/${sch._id}`)}>
+                <button
+                  onClick={() => navigate(`/sholarshipdetails/${sch._id}`)}
+                >
                   <FaInfoCircle className="text-blue-500 cursor-pointer" />
                 </button>
-                <button >
-                  <FaEdit className="text-yellow-500 cursor-not-allowed" />
+
+                <button onClick={() => openEditModal(sch)}>
+                  <FaEdit className="text-yellow-500 cursor-pointer" />
                 </button>
-                <button >
+
+                <button>
                   <FaTrashAlt className="text-red-500 cursor-not-allowed" />
                 </button>
               </td>
@@ -55,6 +75,32 @@ const ManageScholarships = () => {
           ))}
         </tbody>
       </table>
+
+      {/* Modal */}
+      {selectedScholarship && (
+        <div
+          className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50"
+          onClick={closeEditModal}
+        >
+          <div
+            className="bg-white rounded p-6 w-96 relative"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              onClick={closeEditModal}
+              className="absolute top-2 right-2 text-gray-600 hover:text-gray-900 text-lg font-bold"
+              aria-label="Close modal"
+            >
+              ✕
+            </button>
+           <EditScholar
+  scholarship={selectedScholarship}
+  onClose={closeEditModal}
+  refetch={refetch}
+/>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
