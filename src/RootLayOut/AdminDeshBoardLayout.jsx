@@ -54,6 +54,11 @@ function AdminDeshBoardLayout() {
               <BiHome className="inline-block mr-2" size={18} /> Home
             </NavLink>
           </li>
+           <li>
+            <NavLink to="/admindashboard/addminaprofile">
+              <BiHome className="inline-block mr-2" size={18} /> Admin Profile
+            </NavLink>
+          </li>
 
           <li>
             <NavLink to="/admindashboard/addminaddscholaship">
@@ -70,7 +75,7 @@ function AdminDeshBoardLayout() {
 
 {/* Manage all applied scholarship applications */}
 <li>
-  <NavLink to="/admindashboard/manageapplications" className="flex items-center text-white hover:text-blue-600">
+  <NavLink to="/admindashboard/allappliedSlspMdtr" className="flex items-center text-white hover:text-blue-600">
     <FaClipboardList className="inline-block mr-2 text-white" size={18} />
     Manage Applications
   </NavLink>
@@ -86,16 +91,13 @@ function AdminDeshBoardLayout() {
 
 {/* Manage user reviews on scholarships */}
 <li>
-  <NavLink to="/admindashboard/managereviews" className="flex items-center text-white hover:text-blue-600">
+  <NavLink to="/admindashboard/allreviewsMod" className="flex items-center text-white hover:text-blue-600">
     <FaStar className="inline-block mr-2 text-white" size={18} />
     Manage Reviews
   </NavLink>
 </li>
 
-    
- 
-          
-       
+  
         </ul>
       </div>
     </div>

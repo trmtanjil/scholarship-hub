@@ -29,6 +29,7 @@ import ManageScholarships from "../Page/Modarator/MmgSlrspModarator";
 import Manageusers from "../Page/Admin/Manageusers";
 import Managereviews from "../Page/Admin/Managereviews";
 import Manageapplications from "../Page/Admin/Manageapplications";
+import AdminProfile from "../Page/Admin/AdminProfile";
  
  
 export const router = createBrowserRouter([
@@ -152,8 +153,8 @@ export const router = createBrowserRouter([
         Component:AdminAddScholarship,
     },
     {
-      path:'manageapplications',
-      Component:Manageapplications,
+      path:'allappliedSlspMdtr',
+      Component:AllappliedSlspMdtr,
     },
     {
       path:'manageusers',
@@ -163,9 +164,13 @@ export const router = createBrowserRouter([
       path:'managescholarships',
       Component:ManageScholarships,
     },
-    {
-      path:'managereviews',
-      Component:Managereviews,
+      {
+      path:'allreviewsMod',
+      Component:AllreviewsMod,
+    },
+      {
+      path:'addminaprofile',
+      Component:AdminProfile,
     }
   
   ]

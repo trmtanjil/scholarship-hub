@@ -1,12 +1,12 @@
-import React from 'react'
-import useAuth from '../../hoocks/useAuth'
+
+import useAuth from '../../hoocks/useAuth';
 import useAxiosSecure from '../../hoocks/useAxiosSecure';
 import { useQuery } from '@tanstack/react-query';
 
-function ModaratorProfile() {
- 
- 
+function AdminProfile() {
 
+
+    
 
   const { user } = useAuth();   // 👉 Directly getting photoURL from useAuth
   const axiosSecure = useAxiosSecure();
@@ -26,8 +26,9 @@ function ModaratorProfile() {
 
 
 
+
   return (
-   <div className="max-w-md mx-auto p-6 bg-white rounded-lg shadow-lg mt-8 text-center">
+       <div className="max-w-md mx-auto p-6 bg-white rounded-lg shadow-lg mt-8 text-center">
       <img
         src={user?.photoURL || userInfo?.photoURL || 'https://i.ibb.co/2FsfXqM/default-avatar.png'}
         alt="User"
@@ -50,4 +51,4 @@ function ModaratorProfile() {
   )
 }
 
-export default ModaratorProfile
+export default AdminProfile
