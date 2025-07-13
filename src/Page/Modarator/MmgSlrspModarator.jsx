@@ -20,6 +20,7 @@ const ManageScholarships = () => {
     },
   });
 
+  console.log(scholarships)
   // State to control modal and selected scholarship
   const [selectedScholarship, setSelectedScholarship] = useState(null);
 

@@ -5,7 +5,7 @@ import Logout from "../Authentication/Logout/Logout";
 
 const Navbar = () => {
   const { user } = useAuth();
-  console.log(user);
+
   const isAdmin = true; // Dummy admin role
   const isModerator = true; // Dummy moderator role
 

@@ -11,10 +11,10 @@ const AllScholarships = () => {
 
   // 🔁 Fetch Data with Search & Pagination
   const { data = {}, isLoading, refetch } = useQuery({
-    queryKey: ['scholarships', searchTerm, page],
+    queryKey: ['scholarshipss', searchTerm, page],
     queryFn: async () => {
       const res = await axiosSecure.get(
-        `/scholarships?search=${searchTerm}&page=${page}&limit=${limit}`
+        `/scholarshipss?search=${searchTerm}&page=${page}&limit=${limit}`
       );
       return res.data;
     },
