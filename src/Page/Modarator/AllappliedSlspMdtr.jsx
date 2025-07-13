@@ -45,6 +45,8 @@ const [feedbackText, setFeedbackText] = useState('');
             <thead className="bg-gray-50">
               <tr>
                 <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">University</th>
+                 <th className="px-4 py-3 text-right text-xs font-medium text-gray-500 uppercase">email</th>
+                
                 <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Program</th>
                 <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Degree</th>
                 <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Status</th>
@@ -63,10 +65,23 @@ const [feedbackText, setFeedbackText] = useState('');
                       <div className="text-sm font-medium text-gray-900">{app.universityName}</div>
                       <div className="text-sm text-gray-500">{app.universityCountry || 'N/A'}</div>
                     </td>
+<td>
+  <div className="relative group">
+    <div className="text-sm font-medium text-gray-900 truncate max-w-[100px]">
+      {app?.userEmail?.slice(0, 3) + '***'}
+    </div>
+
+    {/* Tooltip on hover or tap */}
+    <div className="absolute z-10 hidden group-hover:block group-focus-within:block bg-black text-white text-xs rounded px-2 py-1 -top-8 left-0 whitespace-nowrap">
+      {app?.userEmail}
+    </div>
+  </div>
+</td>
                     <td className="px-4 py-4">
                       <div className="text-sm text-gray-900">{app.subject}</div>
                       <div className="text-sm text-gray-500">{app.category}</div>
                     </td>
+                     
                     <td className="px-4 py-4">
                       <span className="px-2 inline-flex text-xs font-semibold rounded-full bg-blue-100 text-blue-800">
                         {app.degree}
