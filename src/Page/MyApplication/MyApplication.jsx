@@ -57,6 +57,41 @@ const MyApplication = () => {
     }
   };
 
+
+
+
+  const handleDelete = async (id) => {
+  const confirm = await Swal.fire({
+    title: 'Are you sure?',
+    text: 'This will permanently delete the application!',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonText: 'Yes, delete it!',
+    cancelButtonText: 'No, cancel',
+    confirmButtonColor: '#d33',
+    cancelButtonColor: '#3085d6',
+  });
+
+  if (confirm.isConfirmed) {
+    try {
+      const res = await axiosSecure.delete(`/applied-scholarships/${id}`);
+      if (res.data.deletedCount > 0) {
+        Swal.fire({
+          title: 'Deleted!',
+          text: 'Application has been removed.',
+          icon: 'success',
+          timer: 1500,
+          showConfirmButton: false,
+        });
+        refetch(); // Optional: React Query data update
+      }
+    } catch (error) {
+      console.error(error);
+      Swal.fire('Error', 'Failed to delete application', 'error');
+    }
+  }
+};
+
   if (isLoading) return <div className="text-center mt-10">Loading...</div>;
 
   return (
@@ -122,7 +157,13 @@ const MyApplication = () => {
 </button>
 
 
-                  <button className="btn btn-sm btn-outline btn-error">Cancel</button>
+           <button
+  onClick={() => handleDelete(app._id)}
+  className="btn btn-sm btn-outline btn-error"
+>
+  Cancel
+</button>
+
                   <button onClick={() => handleAddReviewClick(app)} className="btn btn-sm btn-outline btn-success">Add Review</button>
                 </td>
               </tr>

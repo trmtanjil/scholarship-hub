@@ -4,25 +4,31 @@ import useAxiosSecure from '../../hoocks/useAxiosSecure';
 import useAuth from '../../hoocks/useAuth';
 import { FiInfo, FiMessageSquare, FiTrash2, FiX } from 'react-icons/fi';
 import Swal from 'sweetalert2';
+import useUserRole from '../../hoocks/useUserRole';
 
 const AllappliedSlspMdtr = () => {
   const axiosSecure = useAxiosSecure();
   const { user } = useAuth();
   const userEmail = user?.email;
+  const { role, roleLoading } = useUserRole();
 
   const [selectedApp, setSelectedApp] = useState(null);
   const [showDetails, setShowDetails] = useState(false);
   const [showFeedbackModal, setShowFeedbackModal] = useState(false);
 const [feedbackText, setFeedbackText] = useState('');
 
-  const { data: applications = [], isLoading } = useQuery({
-    queryKey: ['allAppliedScholarships', userEmail],
-    enabled: !!userEmail,
-    queryFn: async () => {
-      const res = await axiosSecure.get(`/applied-scholarships?email=${userEmail}`);
-      return res.data;
-    },
-  });
+ const { data: applications = [], isLoading } = useQuery({
+  queryKey: ['allAppliedScholarships', userEmail, role],
+  enabled: !roleLoading && !!userEmail,
+  queryFn: async () => {
+    const res = await axiosSecure.get(
+      role === 'moderator'
+        ? '/applied-scholarships'
+        : `/applied-scholarships?email=${userEmail}`
+    );
+    return res.data;
+  },
+});
 
   if (isLoading) {
     return (

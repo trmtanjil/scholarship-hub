@@ -34,6 +34,7 @@ import PrivetRoute from "./PrivetRoute";
 import AdminRoute from "./AdminRoute";
 import Forbidden from "../Page/Forbidden/Forbidden";
 import AnalyticsChartpage from "../Page/Admin/AnalyticsChartpage";
+import ModaratorRoute from "./ModaratorRoute";
  
  
 export const router = createBrowserRouter([
@@ -120,7 +121,7 @@ export const router = createBrowserRouter([
 
   {
   path:'/modaratordashboard',
-  element:<PrivetRoute> <ModaratorDeshBoardLayout></ModaratorDeshBoardLayout></PrivetRoute>,
+  element:<ModaratorRoute><PrivetRoute> <ModaratorDeshBoardLayout></ModaratorDeshBoardLayout></PrivetRoute></ModaratorRoute>,
   children:[
     {
       path:'amaddscholership',
