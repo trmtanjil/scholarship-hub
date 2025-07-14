@@ -32,6 +32,7 @@ import Manageapplications from "../Page/Admin/Manageapplications";
 import AdminProfile from "../Page/Admin/AdminProfile";
 import PrivetRoute from "./PrivetRoute";
 import AdminRoute from "./AdminRoute";
+import Forbidden from "../Page/Forbidden/Forbidden";
  
  
 export const router = createBrowserRouter([
@@ -46,7 +47,12 @@ export const router = createBrowserRouter([
         {
             path:'all-scholarships',
             Component:AllScholerShip
+        },
+        {
+          path:'forbidden',
+          Component:Forbidden,
         }
+      
 
         
         
