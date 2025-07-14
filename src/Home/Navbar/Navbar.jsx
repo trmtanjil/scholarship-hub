@@ -1,19 +1,20 @@
-import { Link } from "react-router";
+import { Link } from "react-router"; 
 import Scholarshiplogo from "../../Scholarshiplogo/Scholarshiplogo";
 import useAuth from "../../hoocks/useAuth";
 import Logout from "../Authentication/Logout/Logout";
+import useUserRole from "../../hoocks/useUserRole";
 
 const Navbar = () => {
   const { user } = useAuth();
+  const { role, roleLoading } = useUserRole();
 
-  const isAdmin = true; // Dummy admin role
-  const isModerator = true; // Dummy moderator role
+  if (roleLoading) return null; // অথবা <LoadingSpinner /> চাইলে
 
   return (
     <div className="navbar bg-white shadow-lg px-6 py-3 sticky top-0 z-50">
       {/* Logo */}
       <div className="flex-1">
-        <Scholarshiplogo></Scholarshiplogo>
+        <Scholarshiplogo />
       </div>
 
       {/* Menu Links */}
@@ -25,27 +26,25 @@ const Navbar = () => {
           All Scholarship
         </Link>
 
-        {/* Conditional Dashboard Links */}
-        {user && (
+        {/* Dashboard Links by Role */}
+        {user && role === "user" && (
           <Link to="/userdashboard" className="hover:text-blue-500">
             User Dashboard
           </Link>
         )}
-        {isAdmin && (
+        {user && role === "admin" && (
           <Link to="/admindashboard" className="hover:text-blue-500">
             Admin Dashboard
           </Link>
         )}
-        {isModerator && (
+        {user && role === "moderator" && (
           <Link to="/modaratordashboard" className="hover:text-blue-500">
             Moderator Dashboard
           </Link>
         )}
 
         {/* Login/Logout */}
-        <div>
-            <Logout></Logout>
-          </div>
+        <Logout />
       </div>
 
       {/* Mobile Dropdown */}
@@ -74,28 +73,25 @@ const Navbar = () => {
             <Link to="/">Home</Link>
           </li>
           <li>
-            <Link to="/all-scholarships">All Scholarship</Link>
+            <Link to="/allscholarships">All Scholarship</Link>
           </li>
-          {user && (
+          {user && role === "user" && (
             <li>
               <Link to="/userdashboard">User Dashboard</Link>
             </li>
           )}
-          {isAdmin && (
+          {user && role === "admin" && (
             <li>
               <Link to="/admindashboard">Admin Dashboard</Link>
             </li>
           )}
-          {isModerator && (
+          {user && role === "moderator" && (
             <li>
               <Link to="/modaratordashboard">Moderator Dashboard</Link>
             </li>
           )}
 
-          
-          <div>
-            <Logout></Logout>
-          </div>
+          <Logout />
         </ul>
       </div>
     </div>

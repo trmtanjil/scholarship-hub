@@ -30,6 +30,8 @@ import Manageusers from "../Page/Admin/Manageusers";
 import Managereviews from "../Page/Admin/Managereviews";
 import Manageapplications from "../Page/Admin/Manageapplications";
 import AdminProfile from "../Page/Admin/AdminProfile";
+import PrivetRoute from "./PrivetRoute";
+import AdminRoute from "./AdminRoute";
  
  
 export const router = createBrowserRouter([
@@ -66,7 +68,7 @@ export const router = createBrowserRouter([
     },
       {
       path:'sholarshipdetails/:id',
-      Component:ScholarshipDetails
+      element:<PrivetRoute><ScholarshipDetails></ScholarshipDetails></PrivetRoute>
     },
     {
       path:'allscholarships',
@@ -81,7 +83,7 @@ export const router = createBrowserRouter([
 
   {
   path:'/userdashboard',
-  element:<UserDeshBoardLayout></UserDeshBoardLayout>,
+  element:<PrivetRoute><UserDeshBoardLayout></UserDeshBoardLayout></PrivetRoute>,
   children:[
       {
       path: 'checkout/:scholarId',
@@ -111,7 +113,7 @@ export const router = createBrowserRouter([
 
   {
   path:'/modaratordashboard',
-  element: <ModaratorDeshBoardLayout></ModaratorDeshBoardLayout>,
+  element:<PrivetRoute> <ModaratorDeshBoardLayout></ModaratorDeshBoardLayout></PrivetRoute>,
   children:[
     {
       path:'amaddscholership',
@@ -146,7 +148,7 @@ export const router = createBrowserRouter([
  //admin desh board 
   {
   path:'/admindashboard',
-  element:<AdminDeshBoardLayout></AdminDeshBoardLayout>,
+  element:<AdminRoute><PrivetRoute><AdminDeshBoardLayout></AdminDeshBoardLayout></PrivetRoute></AdminRoute>,
   children:[
     {
         path:'addminaddscholaship',
