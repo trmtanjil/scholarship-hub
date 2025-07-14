@@ -96,6 +96,14 @@ function AdminDeshBoardLayout() {
     Manage Reviews
   </NavLink>
 </li>
+{/*analytics Chart page */}
+<li>
+  <NavLink to="/admindashboard/analyticsChartpage" className="flex items-center text-white hover:text-blue-600">
+    <FaStar className="inline-block mr-2 text-white" size={18} />
+  analytics Chart page
+  </NavLink>
+</li>
+
 
   
         </ul>

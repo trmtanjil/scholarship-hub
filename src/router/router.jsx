@@ -33,6 +33,7 @@ import AdminProfile from "../Page/Admin/AdminProfile";
 import PrivetRoute from "./PrivetRoute";
 import AdminRoute from "./AdminRoute";
 import Forbidden from "../Page/Forbidden/Forbidden";
+import AnalyticsChartpage from "../Page/Admin/AnalyticsChartpage";
  
  
 export const router = createBrowserRouter([
@@ -179,6 +180,10 @@ export const router = createBrowserRouter([
       {
       path:'addminaprofile',
       Component:AdminProfile,
+    },
+    {
+      path:'analyticsChartpage',
+      Component:AnalyticsChartpage,
     }
   
   ]
