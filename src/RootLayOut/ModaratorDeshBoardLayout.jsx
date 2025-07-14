@@ -1,23 +1,21 @@
-import React from 'react'
-import { Link, NavLink, Outlet } from 'react-router'
-import Scholarshiplogo from '../Scholarshiplogo/Scholarshiplogo'
-import { BiHome } from 'react-icons/bi'
-import { FaUserCircle, FaRegListAlt, FaClipboardList, FaPlusCircle, FaComments, FaBookReader } from 'react-icons/fa';
+import React from 'react';
+import { NavLink, Outlet } from 'react-router';
+import Scholarshiplogo from '../Scholarshiplogo/Scholarshiplogo';
+import { BiHome } from 'react-icons/bi';
+import { FaUserCircle, FaRegListAlt, FaClipboardList, FaPlusCircle, FaComments } from 'react-icons/fa';
+import { MdDashboard } from 'react-icons/md';
 
-
-function ModaratorDeshBoardLayout() {
+function ModeratorDashboardLayout() {
   return (
-        <div className="drawer lg:drawer-open">
+    <div className="drawer lg:drawer-open">
       <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
-      <div className="drawer-content flex flex-col ">
-        {/* Navbar */}
-        <div className="navbar bg-base-300 w-full lg:hidden">
-          <div className="flex-none ">
-            <label
-              htmlFor="my-drawer-2"
-              aria-label="open sidebar"
-              className="btn btn-square btn-ghost"
-            >
+      
+      {/* Main Content Area */}
+      <div className="drawer-content flex flex-col bg-gray-500">
+        {/* Mobile Navbar */}
+        <div className="navbar bg-white shadow-sm w-full lg:hidden">
+          <div className="flex-none">
+            <label htmlFor="my-drawer-2" className="btn btn-ghost btn-square">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -33,55 +31,94 @@ function ModaratorDeshBoardLayout() {
               </svg>
             </label>
           </div>
-          <div className="mx-2 flex-1 px-2 lg:hidden">DeshBoard</div>
+          <div className="flex-1 px-2 mx-2 text-lg font-semibold text-gray-700">
+            <MdDashboard className="inline-block mr-2" />
+            Moderator Dashboard
+          </div>
         </div>
-        {/* Page content here */}
-        <Outlet></Outlet>
-        {/* Page content here */}
+        
+        {/* Page Content */}
+        <div className="flex-1 p-4 md:p-6">
+          <Outlet />
+        </div>
       </div>
+      
+      {/* Sidebar */}
       <div className="drawer-side">
-        <label
-          htmlFor="my-drawer-2"
-          aria-label="close sidebar"
-          className="drawer-overlay"
-        ></label>
-        <ul className="menu bg-base-200 text-base-content min-h-full w-80 p-4">
-          {/* Sidebar content here */}
-          <Scholarshiplogo></Scholarshiplogo>
-          <li>
-            <NavLink to="/">
-              <BiHome className="inline-block mr-2" size={18} /> Home
-            </NavLink>
-          </li>
-            <Link to="/modaratordashboard/amaddscholership" className="btn btn-sm btn-primary flex items-center gap-2">
-    <FaPlusCircle /> Add Scholarship (AM)
-  </Link>
-
-  <Link to="/modaratordashboard/modaratorProfile" className="btn btn-sm btn-primary flex items-center gap-2">
-    <FaUserCircle /> Moderator Profile
-  </Link>
-
-  <Link to="/modaratordashboard/mmgSlrspModarator" className="btn btn-sm btn-primary flex items-center gap-2">
-    <FaRegListAlt /> Manage Scholarships
-  </Link>
-
-  <Link to="/modaratordashboard/allreviewsMod" className="btn btn-sm btn-primary flex items-center gap-2">
-    <FaComments /> All Reviews
-  </Link>
-
-  <Link to="/modaratordashboard/allappliedSlspMdtr" className="btn btn-sm btn-primary flex items-center gap-2">
-    <FaClipboardList /> All Applied Scholarships
-  </Link>
-
-   
-
-         
+        <label htmlFor="my-drawer-2" aria-label="close sidebar" className="drawer-overlay"></label>
+        
+        <aside className="menu bg-gradient-to-b from-purple-800 to-purple-900 text-white min-h-full w-80 p-0">
+          {/* Logo Section */}
+          <div className="p-6 border-b border-purple-700">
+            <Scholarshiplogo className="text-white" />
+          </div>
           
-       
-        </ul>
+          {/* Navigation Menu */}
+          <nav className="p-4 space-y-2">
+            <NavLink 
+              to="/" 
+              className={({isActive}) => 
+                `flex items-center p-3 rounded-lg transition-all ${isActive ? 'bg-purple-700 text-white shadow-md' : 'hover:bg-purple-700/50'}`
+              }
+            >
+              <BiHome className="w-5 h-5 mr-3" />
+              <span>Home</span>
+            </NavLink>
+            
+            <NavLink 
+              to="/modaratordashboard/amaddscholership"
+              className={({isActive}) => 
+                `flex items-center p-3 rounded-lg transition-all ${isActive ? 'bg-purple-700 text-white shadow-md' : 'hover:bg-purple-700/50'}`
+              }
+            >
+              <FaPlusCircle className="w-5 h-5 mr-3" />
+              <span>Add Scholarship</span>
+            </NavLink>
+            
+            <NavLink 
+              to="/modaratordashboard/modaratorProfile"
+              className={({isActive}) => 
+                `flex items-center p-3 rounded-lg transition-all ${isActive ? 'bg-purple-700 text-white shadow-md' : 'hover:bg-purple-700/50'}`
+              }
+            >
+              <FaUserCircle className="w-5 h-5 mr-3" />
+              <span>Moderator Profile</span>
+            </NavLink>
+            
+            <NavLink 
+              to="/modaratordashboard/mmgSlrspModarator"
+              className={({isActive}) => 
+                `flex items-center p-3 rounded-lg transition-all ${isActive ? 'bg-purple-700 text-white shadow-md' : 'hover:bg-purple-700/50'}`
+              }
+            >
+              <FaRegListAlt className="w-5 h-5 mr-3" />
+              <span>Manage Scholarships</span>
+            </NavLink>
+            
+            <NavLink 
+              to="/modaratordashboard/allreviewsMod"
+              className={({isActive}) => 
+                `flex items-center p-3 rounded-lg transition-all ${isActive ? 'bg-purple-700 text-white shadow-md' : 'hover:bg-purple-700/50'}`
+              }
+            >
+              <FaComments className="w-5 h-5 mr-3" />
+              <span>Manage Reviews</span>
+            </NavLink>
+            
+            <NavLink 
+              to="/modaratordashboard/allappliedSlspMdtr"
+              className={({isActive}) => 
+                `flex items-center p-3 rounded-lg transition-all ${isActive ? 'bg-purple-700 text-white shadow-md' : 'hover:bg-purple-700/50'}`
+              }
+            >
+              <FaClipboardList className="w-5 h-5 mr-3" />
+              <span>Applications</span>
+            </NavLink>
+          </nav>
+        </aside>
       </div>
     </div>
-  )
+  );
 }
 
-export default ModaratorDeshBoardLayout
+export default ModeratorDashboardLayout;

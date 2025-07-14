@@ -1,17 +1,31 @@
 import React from 'react';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useQueries } from '@tanstack/react-query';
 import useAxiosSecure from '../../hoocks/useAxiosSecure';
 import { Link } from 'react-router';
 
 const PaginasionToSchola = () => {
   const axiosSecure = useAxiosSecure();
 
+  // Fetch scholarships
   const { data: scholarships = [], isLoading, isError } = useQuery({
     queryKey: ['all-scholarships'],
     queryFn: async () => {
       const res = await axiosSecure.get('/top-scholarships');
       return res.data;
     },
+  });
+
+  // Fetch ratings for all scholarships using useQueries
+  const ratingQueries = useQueries({
+    queries:
+      scholarships.map((scholarship) => ({
+        queryKey: ['averageRating', scholarship._id],
+        queryFn: async () => {
+          const res = await axiosSecure.get(`/reviews/average-rating/${scholarship._id}`);
+          return res.data;
+        },
+        enabled: scholarships.length > 0,
+      })) || [],
   });
 
   if (isLoading) return <p className="text-center text-lg">Loading scholarships...</p>;
@@ -22,15 +36,16 @@ const PaginasionToSchola = () => {
       <h2 className="text-3xl font-bold mb-6 text-center">All Scholarships</h2>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {scholarships.map((scholarship) => {
-          // Calculate average rating (if rating array exists)
-          const ratings = scholarship.ratings || [];
-          const averageRating = ratings.length > 0
-            ? (ratings.reduce((sum, r) => sum + r, 0) / ratings.length).toFixed(1)
-            : 'No Rating';
+        {scholarships.map((scholarship, index) => {
+          const ratingQuery = ratingQueries[index];
+          const averageRating = ratingQuery?.data?.averageRating ?? 'No Rating';
+          const ratingLoading = ratingQuery?.isLoading;
 
           return (
-            <div key={scholarship._id} className="card bg-white shadow-md p-4 rounded-xl hover:shadow-lg transition">
+            <div
+              key={scholarship._id}
+              className="card bg-white shadow-md p-4 rounded-xl hover:shadow-lg transition"
+            >
               <img
                 src={scholarship.universityImage}
                 alt={scholarship.universityName}
@@ -61,12 +76,18 @@ const PaginasionToSchola = () => {
               </div>
 
               <div className="text-sm text-gray-500 mb-2">
-                <strong>Rating:</strong> {averageRating} ⭐
+                {ratingLoading ? (
+                  <p className="text-sm text-gray-400 italic mt-1">Loading rating...</p>
+                ) : (
+                  <p className="text-sm text-yellow-600 font-semibold mt-1">
+                    ⭐ {averageRating} / 5
+                  </p>
+                )}
               </div>
 
-              <Link to={`/sholarshipdetails/${scholarship._id}`}>
-  <button className="btn btn-primary w-full">Scholarship Details</button>
-</Link>
+              <Link to={`/scholarshipdetails/${scholarship._id}`}>
+                <button className="btn btn-primary w-full">Scholarship Details</button>
+              </Link>
             </div>
           );
         })}
