@@ -56,7 +56,7 @@ const PaginasionToSchola = () => {
                   />
                 </div>
                 <h3 className="font-semibold text-lg text-black">
-                  {scholarship.scholarshipName}
+                  {scholarship.universityName}
                 </h3>
               </div>
 

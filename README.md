@@ -18,6 +18,21 @@ If you are developing a production application, we recommend using TypeScript wi
 2  purpose,  এই ওয়েবসাইটটি শিক্ষার্থীদের জন্য তৈরি, যেখানে তারা সহজেই বিভিন্ন জাতীয় ও আন্তর্জাতিক স্কলারশিপ খুঁজে পেতে, আবেদন করতে এবং আবেদন ট্র্যাক করতে পারে — তাদের সাবজেক্ট, ডিগ্রি এবং আগ্রহ অনুযায়ী।
  
  3 live URL, https://scholarshipfinder.netlify.app
+
+
+
+moderatorName
+email :  moderator@moderator.com
+password :   moderatoR!
+
+adminName
+email : admin@admin.com
+password :  admiN!
+
+
+
+
+
   
  4 key features,মূল বৈশিষ্ট্যসমূহ: স্কলারশিপ সার্চ (নাম, বিশ্ববিদ্যালয়, ক্যাটাগরি বা সাবজেক্ট দিয়ে)
 

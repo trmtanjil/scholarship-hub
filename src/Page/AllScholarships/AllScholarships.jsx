@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useQueries } from '@tanstack/react-query';
 import useAxiosSecure from '../../hoocks/useAxiosSecure';
 import { Link } from 'react-router';
 
@@ -22,6 +22,17 @@ const AllScholarships = () => {
   const scholarships = data.result || [];
   const total = data.total || 0;
   const totalPages = Math.ceil(total / limit);
+
+  const ratingQueries = useQueries({
+    queries: scholarships.map((scholarship) => ({
+      queryKey: ['averageRating', scholarship._id],
+      queryFn: async () => {
+        const res = await axiosSecure.get(`/reviews/average-rating/${scholarship._id}`);
+        return res.data;
+      },
+      enabled: scholarships.length > 0,
+    })),
+  });
 
   const handleSearchChange = (e) => {
     setSearchTerm(e.target.value);
@@ -55,7 +66,7 @@ const AllScholarships = () => {
       {scholarships.length === 0 && !isLoading && (
         <div className="text-center mt-12">
           <img
-            src="https://i.ibb.co/XxcB4C9d/Chat-GPT-Image-Jul-15-2025-10-53-06-PM.png"
+            src="https://i.ibb.co/6gGrxT7/no-data.png"
             alt="No Result"
             className="w-60 mx-auto mb-4"
           />
@@ -67,88 +78,93 @@ const AllScholarships = () => {
 
       {/* 🎓 Scholarship Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-        {scholarships.map((scholarship) => (
-          <div
-            key={scholarship._id}
-            className="bg-[#E9FAF9] rounded-2xl p-5 space-y-3 relative shadow-md hover:shadow-lg transition-all duration-300"
-          >
-            {/* Header with logo + name */}
-            <div className="flex items-center gap-3">
-              <div className="bg-white p-2 rounded-full">
-                <img
-                  src={scholarship.universityImage}
-                  alt="logo"
-                  className="h-10 w-10 object-cover rounded-full"
-                />
-              </div>
-              <h3 className="font-semibold text-lg text-black">
-                {scholarship.scholarshipName}
-              </h3>
-            </div>
+        {scholarships.map((scholarship, index) => {
+          const ratingQuery = ratingQueries[index];
+          const averageRating = ratingQuery?.data?.averageRating ?? 'No Rating';
+          const ratingLoading = ratingQuery?.isLoading;
 
-            {/* Amount and Deadline */}
-            <div className="flex justify-between items-center mt-2 text-sm">
-              <div className="flex items-center gap-1">
-                <span className="text-lg">💲</span>
-                <div>
-                  <p className="text-gray-500">Application Fees:</p>
-                  <p className="text-black font-bold">${scholarship.applicationFees}</p>
+          return (
+            <div
+              key={scholarship._id}
+              className="bg-[#E9FAF9] rounded-2xl p-5 space-y-3 relative shadow-md hover:shadow-lg transition-all duration-300"
+            >
+              {/* Header with logo + name */}
+              <div className="flex items-center gap-3">
+                <div className="bg-white p-2 rounded-full">
+                  <img
+                    src={scholarship.universityImage}
+                    alt="logo"
+                    className="h-10 w-10 object-cover rounded-full"
+                  />
+                </div>
+                <h3 className="font-semibold text-lg text-black">
+                  {scholarship.scholarshipName}
+                </h3>
+              </div>
+
+              {/* Amount and Deadline */}
+              <div className="flex justify-between items-center mt-2 text-sm">
+                <div className="flex items-center gap-1">
+                  <span className="text-lg">💲</span>
+                  <div>
+                    <p className="text-gray-500">Application Fees:</p>
+                    <p className="text-black font-bold">${scholarship.applicationFees}</p>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-1">
+                  <span className="text-lg">📅</span>
+                  <div>
+                    <p className="text-gray-500">Deadline:</p>
+                    <p className="text-black font-bold">
+                      {new Date(scholarship.deadline).toLocaleDateString('en-US', {
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric',
+                      })}
+                    </p>
+                  </div>
                 </div>
               </div>
 
-              <div className="flex items-center gap-1">
-                <span className="text-lg">📅</span>
-                <div>
-                  <p className="text-gray-500">Deadline:</p>
-                  <p className="text-black font-bold">
-                    {new Date(scholarship.deadline).toLocaleDateString('en-US', {
-                      year: 'numeric',
-                      month: 'long',
-                      day: 'numeric',
-                    })}
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            {/* Tags */}
-            <div className="flex gap-2 flex-wrap">
-              <span className="bg-white rounded-full px-3 py-1 text-sm text-gray-700">
-                {scholarship.subjectCategory || 'Selected Major(s)'}
-              </span>
-              <span className="bg-white rounded-full px-3 py-1 text-sm text-gray-700">
-                {scholarship.degree || 'Current Year in School'}
-              </span>
-            </div>
-
-            <div>
-                 <span className="bg-white rounded-full px-3 py-1 text-sm text-gray-700">
-                  {scholarship.universityCountry || 'Selected  country'}
+              {/* Tags */}
+              <div className="flex gap-2 flex-wrap">
+                <span className="bg-white rounded-full px-3 py-1 text-sm text-gray-700">
+                  {scholarship.subjectCategory || 'Selected Major(s)'}
                 </span>
                 <span className="bg-white rounded-full px-3 py-1 text-sm text-gray-700">
-                  {scholarship.universityCity || 'Current  city'}
+                  {scholarship.degree || 'Current Year in School'}
+                </span>
+              </div>
+              <div>
+                <span className="bg-white rounded-full px-3 py-1 text-sm text-gray-700">
+                  {scholarship.universityCountry || 'Country'}
+                </span>
+                <span className="bg-white rounded-full px-3 py-1 text-sm text-gray-700">
+                  {scholarship.universityCity || 'City'}
                 </span>
               </div>
 
-            {/* Icons */}
-            <div className="flex items-center justify-between mt-1 text-gray-500">
-              <div className="flex gap-3 text-xl">
-                <span>🤍</span>
-                <span>🏆</span>
+              {/* Icons and Rating */}
+              <div className="flex items-center justify-between mt-1 text-gray-500">
+                <div className="flex gap-3 text-xl">
+                  <span>🤍</span>
+                  <span>🏆</span>
+                </div>
+                <div className="text-yellow-600 text-sm font-semibold">
+                  {ratingLoading ? 'Loading...' : `⭐ ${averageRating} / 5`}
+                </div>
               </div>
-              <div className="text-yellow-600 text-sm font-semibold">
-                {/* Rating optional here */}
-              </div>
-            </div>
 
-            {/* Details Button */}
-            <Link to={`/sholarshipdetails/${scholarship._id}`}>
-              <button className=" bg-blue-600 text-white w-full py-2 mt-3 rounded-lg font-semibold transition-all">
-                Scholarship Details
-              </button>
-            </Link>
-          </div>
-        ))}
+              {/* Details Button */}
+              <Link to={`/sholarshipdetails/${scholarship._id}`}>
+                <button className=" bg-blue-600 text-white w-full py-2 mt-3 rounded-lg font-semibold transition-all">
+                  Scholarship Details
+                </button>
+              </Link>
+            </div>
+          );
+        })}
       </div>
 
       {/* 🔢 Pagination */}
