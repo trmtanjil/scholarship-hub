@@ -53,7 +53,11 @@ export const router = createBrowserRouter([
         {
           path:'forbidden',
           Component:Forbidden,
-        }
+        },
+         {
+      path:'allscholarships',
+      Component:AllScholarships
+    }
       
 
         
@@ -78,10 +82,7 @@ export const router = createBrowserRouter([
       path:'sholarshipdetails/:id',
       element:<PrivetRoute><ScholarshipDetails></ScholarshipDetails></PrivetRoute>
     },
-    {
-      path:'allscholarships',
-      Component:AllScholarships
-    }
+   
   ]
  },
 

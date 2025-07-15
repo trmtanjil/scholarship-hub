@@ -1,113 +1,178 @@
-import { Link } from "react-router"; 
+import { Link, NavLink } from "react-router";
 import Scholarshiplogo from "../../Scholarshiplogo/Scholarshiplogo";
 import useAuth from "../../hoocks/useAuth";
 import Logout from "../Authentication/Logout/Logout";
 import useUserRole from "../../hoocks/useUserRole";
 import ThemeToggle from "../../Page/ThemeTogle/ThemeToggle";
+import { FiMenu } from "react-icons/fi";
 
 const Navbar = () => {
   const { user } = useAuth();
   const { role, roleLoading } = useUserRole();
 
-  if (roleLoading) return null; // অথবা <LoadingSpinner /> চাইলে
+  if (roleLoading) return null;
+
+  
+
+ const navLinks = (
+  <>
+    <NavLink
+      to="/"
+      className={({ isActive }) =>
+        `relative px-4 py-2 font-medium transition-all duration-300 ${
+          isActive
+            ? "text-primary"
+            : "text-gray-600 hover:text-primary"
+        }`
+      }
+    >
+      {({ isActive }) => (
+        <>
+          Home
+          {isActive && (
+            <span className="absolute left-1/2 -bottom-1 w-2/3 h-0.5 bg-primary transform -translate-x-1/2 rounded-full transition-all duration-300" />
+          )}
+          {!isActive && (
+            <span className="absolute left-1/2 -bottom-1 w-0 h-0.5 bg-primary transform -translate-x-1/2 rounded-full group-hover:w-2/3 transition-all duration-300" />
+          )}
+        </>
+      )}
+    </NavLink>
+
+    <NavLink
+      to="/allscholarships"
+      className={({ isActive }) =>
+        `relative px-4 py-2 font-medium transition-all duration-300 ${
+          isActive
+            ? "text-primary"
+            : "text-gray-600 hover:text-primary"
+        }`
+      }
+    >
+      {({ isActive }) => (
+        <>
+          All Scholarships
+          {isActive && (
+            <span className="absolute left-1/2 -bottom-1 w-2/3 h-0.5 bg-primary transform -translate-x-1/2 rounded-full transition-all duration-300" />
+          )}
+          {!isActive && (
+            <span className="absolute left-1/2 -bottom-1 w-0 h-0.5 bg-primary transform -translate-x-1/2 rounded-full group-hover:w-2/3 transition-all duration-300" />
+          )}
+        </>
+      )}
+    </NavLink>
+
+    {user && role === "user" && (
+      <NavLink
+        to="/userdashboard"
+        className={({ isActive }) =>
+          `relative px-4 py-2 font-medium transition-all duration-300 ${
+            isActive
+              ? "text-primary"
+              : "text-gray-600 hover:text-primary"
+          }`
+        }
+      >
+        {({ isActive }) => (
+          <>
+            User Dashboard
+            {isActive && (
+              <span className="absolute left-1/2 -bottom-1 w-2/3 h-0.5 bg-primary transform -translate-x-1/2 rounded-full transition-all duration-300" />
+            )}
+            {!isActive && (
+              <span className="absolute left-1/2 -bottom-1 w-0 h-0.5 bg-primary transform -translate-x-1/2 rounded-full group-hover:w-2/3 transition-all duration-300" />
+            )}
+          </>
+        )}
+      </NavLink>
+    )}
+
+    {user && role === "admin" && (
+      <NavLink
+        to="/admindashboard"
+        className={({ isActive }) =>
+          `relative px-4 py-2 font-medium transition-all duration-300 ${
+            isActive
+              ? "text-primary"
+              : "text-gray-600 hover:text-primary"
+          }`
+        }
+      >
+        {({ isActive }) => (
+          <>
+            Admin Dashboard
+            {isActive && (
+              <span className="absolute left-1/2 -bottom-1 w-2/3 h-0.5 bg-primary transform -translate-x-1/2 rounded-full transition-all duration-300" />
+            )}
+            {!isActive && (
+              <span className="absolute left-1/2 -bottom-1 w-0 h-0.5 bg-primary transform -translate-x-1/2 rounded-full group-hover:w-2/3 transition-all duration-300" />
+            )}
+          </>
+        )}
+      </NavLink>
+    )}
+
+    {user && role === "moderator" && (
+      <NavLink
+        to="/modaratordashboard"
+        className={({ isActive }) =>
+          `relative px-4 py-2 font-medium transition-all duration-300 ${
+            isActive
+              ? "text-primary"
+              : "text-gray-600 hover:text-primary"
+          }`
+        }
+      >
+        {({ isActive }) => (
+          <>
+            Moderator Dashboard
+            {isActive && (
+              <span className="absolute left-1/2 -bottom-1 w-2/3 h-0.5 bg-primary transform -translate-x-1/2 rounded-full transition-all duration-300" />
+            )}
+            {!isActive && (
+              <span className="absolute left-1/2 -bottom-1 w-0 h-0.5 bg-primary transform -translate-x-1/2 rounded-full group-hover:w-2/3 transition-all duration-300" />
+            )}
+          </>
+        )}
+      </NavLink>
+    )}
+  </>
+);
+
 
   return (
-    <div className="navbar bg-white shadow-lg px-6 py-3 sticky top-0 z-50">
-      {/* Logo */}
-      <div className="flex-1">
-        <Scholarshiplogo />
-      </div>
-
-      {/* Menu Links */}
-      <div className="flex-none hidden md:flex gap-6 items-center text-lg font-medium text-gray-700">
-       
-            
-         
-        <Link to="/" className="hover:text-blue-500">
-          Home
-        </Link>
-        <Link to="/allscholarships" className="hover:text-blue-500">
-          All Scholarship
+    <header className="sticky  top-0 z-50 shadow-md   ">
+      <div className="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
+        {/* Logo */}
+        <Link to="/" className="flex items-center gap-2">
+          <Scholarshiplogo />
         </Link>
 
-        {/* Dashboard Links by Role */}
-        {user && role === "user" && (
-          <Link to="/userdashboard" className="hover:text-blue-500">
-            User Dashboard
-          </Link>
-        )}
-        {user && role === "admin" && (
-          <Link to="/admindashboard" className="hover:text-blue-500">
-            Admin Dashboard
-          </Link>
-        )}
-        {user && role === "moderator" && (
-          <Link to="/modaratordashboard" className="hover:text-blue-500">
-            Moderator Dashboard
-          </Link>
-        )}
-
-
-<div className="rounded-full">
-              <ThemeToggle></ThemeToggle>
-            </div>
-
-        {/* Login/Logout */}
-        <Logout />
-      </div>
-
-      {/* Mobile Dropdown */}
-      <div className="dropdown dropdown-end md:hidden text-black">
-        <label tabIndex={0} className="btn btn-ghost">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-6 w-6"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M4 6h16M4 12h16M4 18h16"
-            />
-          </svg>
-        </label>
-        <ul
-          tabIndex={0}
-          className="menu menu-sm dropdown-content mt-3 z-[1] p-4 shadow bg-white rounded-box w-52 space-y-2"
-        >
-          <li>
-            <ThemeToggle></ThemeToggle>
-          </li>
-
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>
-            <Link to="/allscholarships">All Scholarship</Link>
-          </li>
-          {user && role === "user" && (
-            <li>
-              <Link to="/userdashboard">User Dashboard</Link>
-            </li>
-          )}
-          {user && role === "admin" && (
-            <li>
-              <Link to="/admindashboard">Admin Dashboard</Link>
-            </li>
-          )}
-          {user && role === "moderator" && (
-            <li>
-              <Link to="/modaratordashboard">Moderator Dashboard</Link>
-            </li>
-          )}
-
+        {/* Desktop Nav */}
+        <nav className="hidden md:flex items-center gap-6   font-medium text-base">
+          {navLinks}
+          <div className="mx-2">
+            <ThemeToggle />
+          </div>
           <Logout />
-        </ul>
+        </nav>
+
+        {/* Mobile Dropdown */}
+        <div className="md:hidden dropdown dropdown-end">
+          <label tabIndex={0} className="btn btn-ghost btn-circle text-gray-700 dark:text-white">
+            <FiMenu className="w-6 h-6" />
+          </label>
+          <ul
+            tabIndex={0}
+            className="menu menu-sm dropdown-content mt-3 z-[100] p-4 shadow bg-white dark:bg-gray-800 rounded-box w-56 text-gray-700 dark:text-white space-y-2"
+          >
+            {navLinks}
+            <li><ThemeToggle /></li>
+            <li><Logout /></li>
+          </ul>
+        </div>
       </div>
-    </div>
+    </header>
   );
 };
 

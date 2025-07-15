@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router';
+import { Link, useLocation, useNavigate } from 'react-router';
 import SocialLogin from '../SocialLogin/SocialLogin';
 import axios from 'axios';
 import useAxios from '../../../hoocks/useAxios';
@@ -17,6 +17,9 @@ const RegisterForm = () => {
   const [profilepic, setProfilePic] = useState();
   const { cratUser, userProfileUpdate } = useAuth();
   const axiosInstance = useAxios();
+  const navigate =useNavigate()
+  const location =useLocation()
+    const [showPassword, setShowPassword] = useState(false);
 
   const onSubmit = async (data) => {
     try {
@@ -53,6 +56,7 @@ const RegisterForm = () => {
       });
 
       toast.success('Registration successful!');
+        navigate(location?.state || '/');
     } catch (error) {
       console.error(error);
       toast.error(error.message || 'Registration failed');
@@ -108,15 +112,20 @@ const RegisterForm = () => {
           </div>
 
           {/* Password */}
-          <div>
-            <label className="block mb-1 text-sm font-medium text-gray-700">Password</label>
+               <div className="relative">
             <input
-              {...register("password", { required: "Password is required" })}
-              type="password"
+              type={showPassword ? "text" : "password"}
+              {...register('password', { required: true, minLength: 6 })}
+              className="input input-bordered w-full pr-12"
               placeholder="Password"
-              className="input input-bordered w-full"
             />
-            {errors.password && <p className="text-red-500 text-sm mt-1">{errors.password.message}</p>}
+            <button
+              type="button"
+              onClick={() => setShowPassword(!showPassword)}
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-sm text-gray-500"
+            >
+              {showPassword ? "Hide" : "Show"}
+            </button>
           </div>
 
           {/* Photo Upload */}

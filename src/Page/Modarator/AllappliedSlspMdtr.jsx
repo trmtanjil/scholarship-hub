@@ -40,7 +40,7 @@ const [feedbackText, setFeedbackText] = useState('');
 
   return (
     <div className="p-4 md:p-6 max-w-7xl mx-auto">
-      <div className="bg-white rounded-xl shadow-md overflow-hidden">
+      <div className="bg-red rounded-xl shadow-md overflow-hidden">
         <div className="p-5 bg-gradient-to-r from-blue-600 to-blue-800 text-white">
           <h2 className="text-2xl md:text-3xl font-bold">Your Scholarship Applications</h2>
           <p className="text-blue-100 mt-1">View and manage all your applications</p>
