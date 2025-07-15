@@ -23,7 +23,7 @@ function Slider() {
   const slideData = [
   {
     id: 1,
-    image: "https://i.ibb.co/dwfc1SbC/sco3.jpg",
+    image: "https://i.ibb.co/jv9ZD803/s1.jpg",
     subtitle: "Start Your Scholarship Journey",
     title: "Find Your Ideal Scholarship Today",
     description: "Discover national and international scholarships that match your goals. Apply with ease and secure your academic future.",
@@ -32,7 +32,7 @@ function Slider() {
   },
   {
     id: 2,
-    image: "https://i.ibb.co/1J4LsH3C/scho1.jpg",
+    image: " https://i.ibb.co/zhF90LwT/s2.jpg",
     subtitle: "Opportunities That Fit Your Goals",
     title: "Scholarships for Every Student",
     description: "From undergraduate to postgraduate programs – explore verified scholarships across various universities and countries.",
@@ -41,7 +41,7 @@ function Slider() {
   },
   {
     id: 3,
-    image: "https://i.ibb.co/wFccNV4p/scho2.jpg",
+    image: "https://i.ibb.co/Hfqd1JDR/s3.jpg",
     subtitle: "Apply Instantly, Study Confidently",
     title: "Secure Your Funding Today",
     description: "Apply to scholarships with simplified steps. Our platform ensures transparency, real-time updates, and expert guidance.",

@@ -13,7 +13,7 @@ function UserDeshBoardLayout() {
         {/* Mobile Navbar */}
         <div className="navbar bg-white shadow-sm w-full lg:hidden">
           <div className="flex-none">
-            <label htmlFor="my-drawer-2" className="btn btn-ghost btn-square">
+            <label htmlFor="my-drawer-2" className="btn btn-ghost btn-square text-blue-600">
               <BiMenu className="w-6 h-6" />
             </label>
           </div>

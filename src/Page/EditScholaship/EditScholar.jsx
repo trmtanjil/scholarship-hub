@@ -58,7 +58,7 @@ const EditScholar = ({ scholarship, onClose, refetch }) => {
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-2 z-50">
-      <div className="max-w-6xl w-full mx-auto p-4 bg-white rounded-xl text-gray-700 shadow-lg overflow-y-auto max-h-[90vh]">
+      <div className="max-w-6xl w-full mx-auto p-4 bg-white rounded-xl text-gray-400 shadow-lg overflow-y-auto max-h-[90vh]">
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-xl md:text-2xl font-bold">✏️ Edit Scholarship</h2>
           <button onClick={onClose} className="btn btn-circle btn-sm">

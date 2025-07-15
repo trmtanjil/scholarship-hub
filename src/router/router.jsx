@@ -1,5 +1,4 @@
-
-import { createBrowserRouter} from "react-router";
+import { createBrowserRouter } from "react-router";
 import RootLayOut from "../RootLayOut/RootLayOut";
 import Home from "../Home/Home/Home";
 import UserDeshBoardLayout from "../RootLayOut/UserDeshBoardLayout";
@@ -35,161 +34,174 @@ import AdminRoute from "./AdminRoute";
 import Forbidden from "../Page/Forbidden/Forbidden";
 import AnalyticsChartpage from "../Page/Admin/AnalyticsChartpage";
 import ModaratorRoute from "./ModaratorRoute";
- 
- 
+import Error from "../Page/Error/Error";
+
 export const router = createBrowserRouter([
   {
     path: "/",
-    Component:RootLayOut,
-    children:[
-        {
-            index:true,
-            Component:Home,
-        },
-        {
-            path:'all-scholarships',
-            Component:AllScholerShip
-        },
-        {
-          path:'forbidden',
-          Component:Forbidden,
-        },
-         {
-      path:'allscholarships',
-      Component:AllScholarships
-    }
-      
-
-        
-        
-    ]
-},
-
-//auth lay out 
-{
-  path:'/',
-  Component:AthenticationLayOut,
-  children:[
-    {
-      path:'login',
-      Component:Login,
-    },
-     {
-      path:'register',
-      Component:RegisterForm,
-    },
+    Component: RootLayOut,
+    children: [
       {
-      path:'sholarshipdetails/:id',
-      element:<PrivetRoute><ScholarshipDetails></ScholarshipDetails></PrivetRoute>
-    },
-   
-  ]
- },
+        index: true,
+        Component: Home,
+      },
+      {
+        path: "all-scholarships",
+        Component: AllScholerShip,
+      },
+      {
+        path: "forbidden",
+        Component: Forbidden,
+      },
+      {
+        path: "allscholarships",
+        Component: AllScholarships,
+      },
+    ],
+  },
 
+  //auth lay out
+  {
+    path: "/",
+    Component: AthenticationLayOut,
+    children: [
+      {
+        path: "login",
+        Component: Login,
+      },
+      {
+        path: "register",
+        Component: RegisterForm,
+      },
+      {
+        path: "sholarshipdetails/:id",
+        element: (
+          <PrivetRoute>
+            <ScholarshipDetails></ScholarshipDetails>
+          </PrivetRoute>
+        ),
+      },
+    ],
+  },
 
-
-//user deshboard 
+  //user deshboard
 
   {
-  path:'/userdashboard',
-  element:<PrivetRoute><UserDeshBoardLayout></UserDeshBoardLayout></PrivetRoute>,
-  children:[
+    path: "/userdashboard",
+    element: (
+      <PrivetRoute>
+        <UserDeshBoardLayout></UserDeshBoardLayout>
+      </PrivetRoute>
+    ),
+    children: [
       {
-      path: 'checkout/:scholarId',
-      element: <Payment />,     // এটা ঠিক ✅
-    },
-    {
-      path:'myapplication',
-      Component:MyApplication,
-    },
-    {
-      path:'myprofile',
-      Component:MyProfile
-    },
-     {
-      path:'myreveiw',
-      Component:MyReviews
-    },
-    
-    {
-       path:"edit-application/:id",
-       Component:EditApplication
-    }
-  
-  ]
- },
- //modarator desh board 
+        path: "checkout/:scholarId",
+        element: <Payment />, // এটা ঠিক ✅
+      },
+      {
+        path: "myapplication",
+        Component: MyApplication,
+      },
+      {
+        path: "myprofile",
+        Component: MyProfile,
+      },
+      {
+        path: "myreveiw",
+        Component: MyReviews,
+      },
+
+      {
+        path: "edit-application/:id",
+        Component: EditApplication,
+      },
+    ],
+  },
+  //modarator desh board
 
   {
-  path:'/modaratordashboard',
-  element:<ModaratorRoute><PrivetRoute> <ModaratorDeshBoardLayout></ModaratorDeshBoardLayout></PrivetRoute></ModaratorRoute>,
-  children:[
-    {
-      path:'amaddscholership',
-      Component:A_M_AddScholarship,
-    },
-    {
-      path:'modaratorProfile',
-      Component:ModaratorProfile,
-    },
-    {
-      path:'mmgSlrspModarator',
-      Component:MmgSlrspModarator,
-    },
-     {
-      path:'allreviewsMod',
-      Component:AllreviewsMod,
-    },
-     {
-      path:'allappliedSlspMdtr',
-      Component:AllappliedSlspMdtr,
-    },
-     
-    {
-  path: 'editScholarship/:id',
-  Component:EditScholar
-}
-  
-  
-  ]
- },
+    path: "/modaratordashboard",
+    element: (
+      <ModaratorRoute>
+        <PrivetRoute>
+          {" "}
+          <ModaratorDeshBoardLayout></ModaratorDeshBoardLayout>
+        </PrivetRoute>
+      </ModaratorRoute>
+    ),
+    children: [
+      {
+        path: "amaddscholership",
+        Component: A_M_AddScholarship,
+      },
+      {
+        path: "modaratorProfile",
+        Component: ModaratorProfile,
+      },
+      {
+        path: "mmgSlrspModarator",
+        Component: MmgSlrspModarator,
+      },
+      {
+        path: "allreviewsMod",
+        Component: AllreviewsMod,
+      },
+      {
+        path: "allappliedSlspMdtr",
+        Component: AllappliedSlspMdtr,
+      },
 
- //admin desh board 
+      {
+        path: "editScholarship/:id",
+        Component: EditScholar,
+      },
+    ],
+  },
+
+  //admin desh board
   {
-  path:'/admindashboard',
-  element:<AdminRoute><PrivetRoute><AdminDeshBoardLayout></AdminDeshBoardLayout></PrivetRoute></AdminRoute>,
-  children:[
-    {
-        path:'addminaddscholaship',
-        Component:AdminAddScholarship,
-    },
-    {
-      path:'allappliedSlspMdtr',
-      Component:AllappliedSlspMdtr,
-    },
-    {
-      path:'manageusers',
-      Component:Manageusers,
-    },
-    {
-      path:'managescholarships',
-      Component:ManageScholarships,
-    },
+    path: "/admindashboard",
+    element: (
+      <AdminRoute>
+        <PrivetRoute>
+          <AdminDeshBoardLayout></AdminDeshBoardLayout>
+        </PrivetRoute>
+      </AdminRoute>
+    ),
+    children: [
       {
-      path:'allreviewsMod',
-      Component:AllreviewsMod,
-    },
+        path: "addminaddscholaship",
+        Component: AdminAddScholarship,
+      },
       {
-      path:'addminaprofile',
-      Component:AdminProfile,
-    },
-    {
-      path:'analyticsChartpage',
-      Component:AnalyticsChartpage,
-    }
-  
-  ]
- },
+        path: "allappliedSlspMdtr",
+        Component: AllappliedSlspMdtr,
+      },
+      {
+        path: "manageusers",
+        Component: Manageusers,
+      },
+      {
+        path: "managescholarships",
+        Component: ManageScholarships,
+      },
+      {
+        path: "allreviewsMod",
+        Component: AllreviewsMod,
+      },
+      {
+        path: "addminaprofile",
+        Component: AdminProfile,
+      },
+      {
+        path: "analyticsChartpage",
+        Component: AnalyticsChartpage,
+      },
+    ],
+  },
 
-
+  {
+    path: "/*",
+    element: <Error></Error>,
+  },
 ]);

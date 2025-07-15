@@ -55,7 +55,7 @@ const AllScholarships = () => {
       {scholarships.length === 0 && !isLoading && (
         <div className="text-center mt-12">
           <img
-            src="https://i.ibb.co/6gGrxT7/no-data.png"
+            src="https://i.ibb.co/XxcB4C9d/Chat-GPT-Image-Jul-15-2025-10-53-06-PM.png"
             alt="No Result"
             className="w-60 mx-auto mb-4"
           />

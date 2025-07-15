@@ -12,7 +12,6 @@ function Home() {
       <PaginasionToSchola></PaginasionToSchola>
       <HowThisWork></HowThisWork>
       <StudentSay></StudentSay>
-      <Footer></Footer>
      </div>
   )
 }

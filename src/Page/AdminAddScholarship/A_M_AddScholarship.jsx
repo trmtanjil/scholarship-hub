@@ -55,7 +55,8 @@ const A_M_AddScholarship = () => {
   };
 
   return (
-    <div className="max-w-3xl mx-auto p-6 bg-white rounded-xl text-gray-700 shadow-lg mt-6">
+    
+    <div className="max-w-3xl mx-auto p-6 bg-white rounded-xl text-gray-400 shadow-lg mt-6">
       <h2 className="text-2xl font-bold mb-4">Add Scholarship</h2>
 
       <form onSubmit={handleSubmit(onSubmit)} className="grid grid-cols-1 md:grid-cols-2 gap-4">

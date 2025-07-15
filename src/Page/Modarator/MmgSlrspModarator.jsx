@@ -114,7 +114,7 @@ const ManageScholarships = () => {
           onClick={closeEditModal}
         >
           <div
-            className="bg-white rounded p-6 w-96 relative"
+            className="bg-white rounded p-6 w-96 relative text-black"
             onClick={(e) => e.stopPropagation()}
           >
             <button

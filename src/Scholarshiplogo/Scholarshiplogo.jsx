@@ -1,16 +1,21 @@
-import React from 'react'
-import { Link } from 'react-router'
+import React from 'react';
+import { Link } from 'react-router'; 
 
-function Scholarshiplogo() {
+function ScholarshipLogo() {
   return (
-    <div>
-        <div className="flex-1">
-        <Link to="/" className="text-2xl font-bold text-blue-600">
-          🎓 ScholarFinder
-        </Link>
-      </div>
+    <div className="flex items-center">
+      <Link to="/" className="flex items-center gap-2">
+        <img
+          src="https://i.ibb.co/G4hGWH9h/sflogo.png"
+          alt="ScholarFinder Logo"
+          className="w-10 h-10 rounded-full object-cover"
+        />
+        <span className="text-xl md:text-2xl font-bold text-blue-600">
+          <span className="text-orange-500">Scholar</span>Finder
+        </span>
+      </Link>
     </div>
-  )
+  );
 }
 
-export default Scholarshiplogo
+export default ScholarshipLogo;
