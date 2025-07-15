@@ -26,7 +26,7 @@ function Login() {
     }
 
   return (
-    <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
+    <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl mx-auto">
       <form 
       onSubmit={handleSubmit(onSubmit)}
       className="card-body">

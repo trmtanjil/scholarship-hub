@@ -1,11 +1,17 @@
 import React from 'react'
 import PaginasionToSchola from '../../Page/PaginasionToSchola/PaginasionToSchola'
-
+import Slider from '../../Page/Slider/Slider'
+import HowThisWork from '../../Page/HowThisWork/HowThisWork'
+import StudentSay from '../../Page/SudentSay/StudentSay'
+ 
 function Home() {
   return (
-    <div>
+    <div  >
+      <Slider></Slider>
       <PaginasionToSchola></PaginasionToSchola>
-    </div>
+      <HowThisWork></HowThisWork>
+      <StudentSay></StudentSay>
+     </div>
   )
 }
 

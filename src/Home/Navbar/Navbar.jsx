@@ -3,6 +3,7 @@ import Scholarshiplogo from "../../Scholarshiplogo/Scholarshiplogo";
 import useAuth from "../../hoocks/useAuth";
 import Logout from "../Authentication/Logout/Logout";
 import useUserRole from "../../hoocks/useUserRole";
+import ThemeToggle from "../../Page/ThemeTogle/ThemeToggle";
 
 const Navbar = () => {
   const { user } = useAuth();
@@ -19,6 +20,9 @@ const Navbar = () => {
 
       {/* Menu Links */}
       <div className="flex-none hidden md:flex gap-6 items-center text-lg font-medium text-gray-700">
+       
+            
+         
         <Link to="/" className="hover:text-blue-500">
           Home
         </Link>
@@ -43,12 +47,17 @@ const Navbar = () => {
           </Link>
         )}
 
+
+<div className="rounded-full">
+              <ThemeToggle></ThemeToggle>
+            </div>
+
         {/* Login/Logout */}
         <Logout />
       </div>
 
       {/* Mobile Dropdown */}
-      <div className="dropdown dropdown-end md:hidden">
+      <div className="dropdown dropdown-end md:hidden text-black">
         <label tabIndex={0} className="btn btn-ghost">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -69,6 +78,10 @@ const Navbar = () => {
           tabIndex={0}
           className="menu menu-sm dropdown-content mt-3 z-[1] p-4 shadow bg-white rounded-box w-52 space-y-2"
         >
+          <li>
+            <ThemeToggle></ThemeToggle>
+          </li>
+
           <li>
             <Link to="/">Home</Link>
           </li>

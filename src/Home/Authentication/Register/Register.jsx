@@ -1,90 +1,87 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { FcGoogle } from 'react-icons/fc';
 import { Link } from 'react-router';
- import SocialLogin from '../SocialLogin/SocialLogin';
+import SocialLogin from '../SocialLogin/SocialLogin';
 import axios from 'axios';
 import useAxios from '../../../hoocks/useAxios';
 import useAuth from '../../../hoocks/useAuth';
-  
+import toast, { Toaster } from 'react-hot-toast';
+
 const RegisterForm = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors }
+    formState: { errors },
   } = useForm();
 
-  const [profilepic, setprofilepic]=useState()
+  const [profilepic, setProfilePic] = useState();
+  const { cratUser, userProfileUpdate } = useAuth();
+  const axiosInstance = useAxios();
 
-  const {cratUser,userProfileUpdate} = useAuth()
-  const axiosInstance =useAxios()
+  const onSubmit = async (data) => {
+    try {
+      // Custom password validation
+      const password = data.password;
+      if (password.length < 6) {
+        return toast.error('Password must be at least 6 characters');
+      }
+      if (!/[A-Z]/.test(password)) {
+        return toast.error('Password must contain at least one capital letter');
+      }
+      if (!/[!@#$%^&*(),.?":{}|<>]/.test(password)) {
+        return toast.error('Password must contain at least one special character');
+      }
 
-
-  const onSubmit = (data) => {
-    console.log('Form Data:', data);
-    cratUser(data.email, data.password)
-    .then(async(result)=>{
-      console.log(result.user)
-
-      //update userinfo in the database
+      // Firebase create user
+      const result = await cratUser(data.email, password);
+      console.log(result.user);
 
       const userInfo = {
-
-
         email: data.email,
         role: 'user',
-        created_at : new Date().toISOString(),
-        last_log_in:new Date().toISOString()
-      }
+        created_at: new Date().toISOString(),
+        last_log_in: new Date().toISOString(),
+      };
 
       const userRes = await axiosInstance.post('/users', userInfo);
-      console.log(userRes.data)
+      console.log(userRes.data);
 
+      // Profile update
+      await userProfileUpdate({
+        displayName: data.name,
+        photoURL: profilepic,
+      });
 
-      //update user profile in firebase 
-      const userProfile = {
-        displayName : data.name,
-        photoURL : profilepic
-      }
-      userProfileUpdate(userProfile)
-      .then(()=>{
-        console.log('profile name pic updated ')
-      })
-      .catch(error =>{
-        console.log(error)
-      })
-
-    })
-    .catch(error=>{
-      console.log(error)
-    })
+      toast.success('Registration successful!');
+    } catch (error) {
+      console.error(error);
+      toast.error(error.message || 'Registration failed');
+    }
   };
 
+  const handleImageUploaded = async (e) => {
+    const image = e.target.files[0];
+    const formData = new FormData();
+    formData.append('image', image);
 
-  const handleimageuploaded =async(e)=>{
-   const image =  e.target.files[0]
-   console.log(image)
-   const formData = new FormData();
-   formData.append('image', image)
+    const imageUploadUrl = `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_IMAGE_UPLOAD_KEY}`;
 
-   const imageUploadUrl = `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_IMAGE_UPLOAD_KEY}`
+    try {
+      const res = await axios.post(imageUploadUrl, formData);
+      setProfilePic(res.data.data.url);
+      toast.success('Image uploaded!');
+    } catch (err) {
+      toast.error('Image upload failed!',err);
+    }
+  };
 
-   const res = await axios.post(imageUploadUrl, formData)
-
-   setprofilepic(res.data.data.url)
-  }
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-800 px-4 p-5 rounded-2xl">
+      <Toaster position="top-center" />
       <div className="bg-base-100 p-8 rounded-xl shadow-lg w-full max-w-md text-center space-y-5">
         <h2 className="text-3xl font-bold text-primary">Create an Account</h2>
-        <p className="text-gray-500">Register with Profast</p>
+        <p className="text-gray-500">Register with ScholarHub</p>
 
-        {/* Profile icon */}
-        <div className="flex justify-center">
-          
-        </div>
-
-        {/* Form */}
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 text-left">
           {/* Name */}
           <div>
@@ -95,9 +92,7 @@ const RegisterForm = () => {
               placeholder="Your Name"
               className="input input-bordered w-full"
             />
-            {errors.name && (
-              <p className="text-red-500 text-sm mt-1">{errors.name.message}</p>
-            )}
+            {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name.message}</p>}
           </div>
 
           {/* Email */}
@@ -109,9 +104,7 @@ const RegisterForm = () => {
               placeholder="Email"
               className="input input-bordered w-full"
             />
-            {errors.email && (
-              <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>
-            )}
+            {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>}
           </div>
 
           {/* Password */}
@@ -123,23 +116,20 @@ const RegisterForm = () => {
               placeholder="Password"
               className="input input-bordered w-full"
             />
-            {errors.password && (
-              <p className="text-red-500 text-sm mt-1">{errors.password.message}</p>
-            )}
+            {errors.password && <p className="text-red-500 text-sm mt-1">{errors.password.message}</p>}
           </div>
 
           {/* Photo Upload */}
           <div>
             <label className="block mb-1 text-sm font-medium text-gray-700">Upload Photo</label>
             <input
-              onChange={handleimageuploaded}
+              onChange={handleImageUploaded}
               type="file"
               className="file-input file-input-bordered w-full"
             />
-          
           </div>
 
-          {/* Submit Button */}
+          {/* Submit */}
           <button
             type="submit"
             className="btn w-full bg-lime-300 hover:bg-lime-400 text-black font-semibold"
@@ -151,13 +141,13 @@ const RegisterForm = () => {
         {/* Login Link */}
         <p className="text-sm text-gray-500">
           Already have an account?{' '}
-          <Link to="/login" className="text-green-600 font-medium   btn-link">
+          <Link to="/login" className="text-green-600 font-medium btn-link">
             Login
           </Link>
         </p>
 
-        {/* Divider */}
-         <SocialLogin></SocialLogin>
+        {/* Social Login */}
+        <SocialLogin />
       </div>
     </div>
   );

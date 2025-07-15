@@ -152,7 +152,7 @@ const ManageUsers = () => {
                           {user.name?.charAt(0) || "U"}
                         </div>
                         <div className="ml-4">
-                          <div className="text-sm font-medium text-gray-900">{user.name || "N/A"}</div>
+                          <div className="text-sm font-medium text-gray-900">{user.user || "N/A"}</div>
                         </div>
                       </div>
                     </td>
