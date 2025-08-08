@@ -19,7 +19,12 @@ If you are developing a production application, we recommend using TypeScript wi
  
  3 live URL,  https://scintillating-salmiakki-2da397.netlify.app/
 
+🚀 **Technologies Used** </br>
+🖥️ Frontend (Client-side)
+ React.js, React Router, Tailwind CSS, DaisyUI, React Hook Form, Axios, SweetAlert2, React Motion, Chart.js / Recharts
 
+🖥️ **Backend (Server-side)**</br>
+Node.js, Express.js, MongoDB, MongoDB Native Driver, Dotenv, CORS, imgbb API, JWT (optional)
 
 moderatorName
 email :  moderator@moderator.com
@@ -28,8 +33,6 @@ password :   moderatoR!
 adminName
 email : admin@admin.com
 password :  admiN!
-
-
 
 
 
