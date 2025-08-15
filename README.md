@@ -19,8 +19,9 @@ scholarship-hub server site link : https://github.com/trmtanjil/scholarship-hub-
 2  purpose,  This website is designed for students, where they can find, apply for, and track their applications to different national and international scholarships — according to their subject, degree, and interests.
  
  3 live URL,  https://scintillating-salmiakki-2da397.netlify.app/
-moderatorName
 
+ 
+moderatorName
 email :  moderator@moderator.com
 password :   moderatoR!
 
