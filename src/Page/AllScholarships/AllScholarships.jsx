@@ -1,19 +1,21 @@
 import React, { useState } from 'react';
 import { useQuery, useQueries } from '@tanstack/react-query';
 import useAxiosSecure from '../../hoocks/useAxiosSecure';
-import { Link } from 'react-router';
+import { Link } from 'react-router'; 
 
 const AllScholarships = () => {
   const axiosSecure = useAxiosSecure();
   const [searchTerm, setSearchTerm] = useState('');
   const [page, setPage] = useState(1);
+  const [sortBy, setSortBy] = useState(''); // Sorting state
   const limit = 6;
 
+  // Fetch scholarships with search, page, and sort
   const { data = {}, isLoading, refetch } = useQuery({
-    queryKey: ['scholarshipss', searchTerm, page],
+    queryKey: ['scholarshipss', searchTerm, page, sortBy],
     queryFn: async () => {
       const res = await axiosSecure.get(
-        `/scholarshipss?search=${searchTerm}&page=${page}&limit=${limit}`
+        `/scholarshipss?search=${searchTerm}&page=${page}&limit=${limit}&sort=${sortBy}`
       );
       return res.data;
     },
@@ -23,6 +25,7 @@ const AllScholarships = () => {
   const total = data.total || 0;
   const totalPages = Math.ceil(total / limit);
 
+  // Fetch average ratings
   const ratingQueries = useQueries({
     queries: scholarships.map((scholarship) => ({
       queryKey: ['averageRating', scholarship._id],
@@ -34,26 +37,42 @@ const AllScholarships = () => {
     })),
   });
 
-  const handleSearchChange = (e) => {
-    setSearchTerm(e.target.value);
-    setPage(1);
-  };
-
   return (
     <div className="max-w-6xl mx-auto p-4">
       <h2 className="text-3xl font-bold text-center mb-8 text-primary">
         Explore All Scholarships
       </h2>
 
-      {/* 🔍 Search Section */}
+      {/* Search + Sort Section */}
       <div className="flex flex-col md:flex-row gap-4 mb-8 justify-center items-center">
+        {/* Search Input */}
         <input
           type="text"
           placeholder="Search by Scholarship, University, or Category"
           className="input input-bordered w-full md:w-2/3"
           value={searchTerm}
-          onChange={handleSearchChange}
+          onChange={(e) => {
+            setSearchTerm(e.target.value);
+            setPage(1);
+          }}
         />
+
+        {/* Sorting Dropdown */}
+        <select
+          value={sortBy}
+          onChange={(e) => {
+            setSortBy(e.target.value);
+            setPage(1);
+          }}
+          className="input input-bordered w-full md:w-auto"
+        >
+          <option value="">Sort By</option>
+          <option value="deadline">Deadline (Soonest)</option>
+          <option value="fees">Application Fees (Low → High)</option>
+          <option value="rating">Rating (High → Low)</option>
+        </select>
+
+        {/* Optional Search Button */}
         <button
           onClick={() => refetch()}
           className="btn bg-[#FF6B2D] hover:bg-[#ff7e47] text-white w-full md:w-auto"
@@ -62,7 +81,7 @@ const AllScholarships = () => {
         </button>
       </div>
 
-      {/* ⛔ No Result */}
+      {/* No Result */}
       {scholarships.length === 0 && !isLoading && (
         <div className="text-center mt-12">
           <img
@@ -76,7 +95,7 @@ const AllScholarships = () => {
         </div>
       )}
 
-      {/* 🎓 Scholarship Grid */}
+      {/* Scholarships Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
         {scholarships.map((scholarship, index) => {
           const ratingQuery = ratingQueries[index];
@@ -85,10 +104,9 @@ const AllScholarships = () => {
 
           return (
             <div
-               key={scholarship._id}
+              key={scholarship._id}
               className="bg-[#E9FAF9] rounded-2xl p-5 space-y-3 relative shadow-md hover:shadow-lg transition-all duration-300"
             >
-              {/* Header with logo + name */}
               <div className="flex items-center gap-3">
                 <div className="bg-white p-2 rounded-full">
                   <img
@@ -102,7 +120,6 @@ const AllScholarships = () => {
                 </h3>
               </div>
 
-              {/* Amount and Deadline */}
               <div className="flex justify-between items-center mt-2 text-sm">
                 <div className="flex items-center gap-1">
                   <span className="text-lg">💲</span>
@@ -145,7 +162,6 @@ const AllScholarships = () => {
                 </span>
               </div>
 
-              {/* Icons and Rating */}
               <div className="flex items-center justify-between mt-1 text-gray-500">
                 <div className="flex gap-3 text-xl">
                   <span>🤍</span>
@@ -156,9 +172,8 @@ const AllScholarships = () => {
                 </div>
               </div>
 
-              {/* Details Button */}
               <Link to={`/sholarshipdetails/${scholarship._id}`}>
-                <button className=" bg-blue-600 text-white w-full py-2 mt-3 rounded-lg font-semibold transition-all">
+                <button className="bg-blue-600 text-white w-full py-2 mt-3 rounded-lg font-semibold transition-all">
                   Scholarship Details
                 </button>
               </Link>
@@ -167,7 +182,7 @@ const AllScholarships = () => {
         })}
       </div>
 
-      {/* 🔢 Pagination */}
+      {/* Pagination */}
       {totalPages > 1 && (
         <div className="flex justify-center mt-10 space-x-2 flex-wrap">
           {[...Array(totalPages).keys()].map((num) => (
