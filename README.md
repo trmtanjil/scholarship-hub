@@ -11,16 +11,16 @@ Currently, two official plugins are available:
 
 If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
 
+scholarship-hub server site link : https://github.com/trmtanjil/scholarship-hub-server
 
  1  project name,  ScholarFinder
 
 
-2  purpose,  এই ওয়েবসাইটটি শিক্ষার্থীদের জন্য তৈরি, যেখানে তারা সহজেই বিভিন্ন জাতীয় ও আন্তর্জাতিক স্কলারশিপ খুঁজে পেতে, আবেদন করতে এবং আবেদন ট্র্যাক করতে পারে — তাদের সাবজেক্ট, ডিগ্রি এবং আগ্রহ অনুযায়ী।
+2  purpose,  This website is designed for students, where they can find, apply for, and track their applications to different national and international scholarships — according to their subject, degree, and interests.
  
- 3 live URL, https://scholarshipfinder.netlify.app
+ 3 live URL,  https://scintillating-salmiakki-2da397.netlify.app/
 
-
-
+ 
 moderatorName
 email :  moderator@moderator.com
 password :   moderatoR!
@@ -29,36 +29,44 @@ adminName
 email : admin@admin.com
 password :  admiN!
 
+🚀 **Technologies Used** </br>
+🖥️ Frontend (Client-side)
+ React.js, React Router, Tailwind CSS, DaisyUI, React Hook Form, Axios, SweetAlert2, React Motion, Chart.js / Recharts
+
+🖥️ **Backend (Server-side)**</br>
+Node.js, Express.js, MongoDB, MongoDB Native Driver, Dotenv, CORS, imgbb API, JWT (optional)
 
 
 
 
   
- 4 key features,মূল বৈশিষ্ট্যসমূহ: স্কলারশিপ সার্চ (নাম, বিশ্ববিদ্যালয়, ক্যাটাগরি বা সাবজেক্ট দিয়ে)
+4 key features: Scholarship search (by name, university, category or subject)
 
-রেজিস্ট্রেশন এবং লগইন (ইমেইল/পাসওয়ার্ড + সোশ্যাল লগইন)
-👥 রোল-ভিত্তিক ড্যাশবোর্ড:
+Registration and login (email/password + social login)
 
-User: আবেদন এবং আবেদন ইতিহাস দেখা
+👥 Role-based dashboard:
 
-Moderator: আবেদন রিভিউ ও ফিডব্যাক দেয়া
+User: View applications and application history
 
-Admin: ইউজার ও স্কলারশিপ ম্যানেজমেন্ট
+Moderator: Review applications and provide feedback
 
-স্কলারশিপ আবেদন ফর্ম
+Admin: User and scholarship management
 
-স্কলারশিপ রেটিং এবং রিভিউ সিস্টেম
- অ্যাডমিন এনালাইটিক্স (চার্টসহ)
+Scholarship application form
 
-ডেডলাইন কাউন্টডাউন ও তারিখ ফরম্যাটিং
+Scholarship rating and review system
 
-সিকিউর পেমেন্ট (Stripe ইন্টিগ্রেশন)
+Admin analytics (with charts)
 
-ছবি আপলোড সিস্টেম (imgbb)
+Deadline countdown and date formatting
 
-ডার্ক/লাইট মোড ও সম্পূর্ণ রেসপন্সিভ ডিজাইন
+Secure payment (Stripe integration)
 
-পেজিনেশন ও ফিল্টারিং সুবিধা
+Image upload system (imgbb)
+
+Dark/light mode and fully responsive design
+
+Pagination and filtering facilities
    
 
 
