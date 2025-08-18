@@ -35,6 +35,7 @@ import Forbidden from "../Page/Forbidden/Forbidden";
 import AnalyticsChartpage from "../Page/Admin/AnalyticsChartpage";
 import ModaratorRoute from "./ModaratorRoute";
 import Error from "../Page/Error/Error";
+import About from "../Page/About/About";
 
 export const router = createBrowserRouter([
   {
@@ -57,6 +58,10 @@ export const router = createBrowserRouter([
         path: "allscholarships",
         Component: AllScholarships,
       },
+      {
+        path:'about',
+        Component:About
+      }
     ],
   },
 
@@ -76,9 +81,9 @@ export const router = createBrowserRouter([
       {
         path: "sholarshipdetails/:id",
         element: (
-          <PrivetRoute>
+           
             <ScholarshipDetails></ScholarshipDetails>
-          </PrivetRoute>
+         
         ),
       },
     ],

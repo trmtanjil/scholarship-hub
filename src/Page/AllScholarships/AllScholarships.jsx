@@ -85,7 +85,7 @@ const AllScholarships = () => {
 
           return (
             <div
-              key={scholarship._id}
+               key={scholarship._id}
               className="bg-[#E9FAF9] rounded-2xl p-5 space-y-3 relative shadow-md hover:shadow-lg transition-all duration-300"
             >
               {/* Header with logo + name */}
