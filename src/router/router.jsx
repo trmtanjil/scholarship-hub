@@ -36,6 +36,7 @@ import AnalyticsChartpage from "../Page/Admin/AnalyticsChartpage";
 import ModaratorRoute from "./ModaratorRoute";
 import Error from "../Page/Error/Error";
 import About from "../Page/About/About";
+import Contacsection from "../Page/Contacsection/Contacsection";
 
 export const router = createBrowserRouter([
   {
@@ -61,6 +62,10 @@ export const router = createBrowserRouter([
       {
         path:'about',
         Component:About
+      },
+          {
+        path:'contacsection',
+        Component:Contacsection,
       }
     ],
   },

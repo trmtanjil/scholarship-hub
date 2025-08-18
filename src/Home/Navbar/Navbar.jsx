@@ -85,6 +85,29 @@ const Navbar = () => {
         </>
       )}
     </NavLink>
+    {/* contact  */}
+      <NavLink
+      to="/contacsection"
+      className={({ isActive }) =>
+        `relative px-4 py-2 font-medium transition-all duration-300 ${
+          isActive
+            ? "text-primary"
+            : "text-gray-600 hover:text-primary"
+        }`
+      }
+    >
+      {({ isActive }) => (
+        <>
+         Contact
+          {isActive && (
+            <span className="absolute left-1/2 -bottom-1 w-2/3 h-0.5 bg-primary transform -translate-x-1/2 rounded-full transition-all duration-300" />
+          )}
+          {!isActive && (
+            <span className="absolute left-1/2 -bottom-1 w-0 h-0.5 bg-primary transform -translate-x-1/2 rounded-full group-hover:w-2/3 transition-all duration-300" />
+          )}
+        </>
+      )}
+    </NavLink>
 
     {user && role === "user" && (
       <NavLink
